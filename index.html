@@ -11,8 +11,9 @@
 <div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div><div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button><button onclick="setBet(10000000,this)">BET 10M</button><button onclick="setBet(100000000,this)" class="big">BET 100M</button><button onclick="setBet(1000000000,this)" class="big">BET 1B 🔥</button></div><div class="grid" id="grid"></div><div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button></div><div class="autoRow"><button id="manualBtn" class="on" onclick="setMode('manual')">✋ MANUAL SPIN</button><button id="autoBtn" onclick="setMode('auto')">▶️ AUTO SPIN</button></div><div id="msg">Good luck! Dragon mode on!</div><div id="comebackBar"></div></div>
 <script>
 let saved=JSON.parse(localStorage.getItem('gpo_save')||'{}');
+let claimed=saved.claimed||false;
 let bal=saved.bal||100000000,bet=50000,spinNum=0,totalSpins=saved.totalSpins||0,pot=50000000000,soundOn=true,vibOn=true,musicOn=true,audioCtx=null,musicTimer=null,currentJackpotBonus=0,jackpotSchedule=[10,15,20,30],scheduleIndex=0,spinsSinceJackpot=0,isSpinning=false,isWheelSpinning=false,wheelRotation=0,autoMode=false,autoTimer=null,level=saved.level||1,levelXP=saved.levelXP||0;
-function saveGame(){localStorage.setItem('gpo_save',JSON.stringify({bal:bal,level:level,levelXP:levelXP,totalSpins:totalSpins}));}
+function saveGame(){if(!claimed)return;localStorage.setItem('gpo_save',JSON.stringify({bal:bal,level:level,levelXP:levelXP,totalSpins:totalSpins,claimed:true}));}
 setInterval(saveGame,2000);
 let levelTitles=["NEWBIE","ROOKIE","PRO","MASTER","DRAGON","LEGEND","GPO KING","MYTHIC"];
 function levelNeed(){return level*10;}
