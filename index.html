@@ -2,7 +2,9 @@
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>GPO - GANY PALIPAS ORAS</title>
 <style>
-*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px}
+*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px;overflow-x:hidden}
+body:fullscreen{background:#0a0618;padding:5px}
+body:fullscreen .machine{max-width:100%}
 .top{font-size:52px;font-weight:900;color:#ffd700;text-shadow:0 0 20px #ff0000,0 0 30px #ffd700,3px 3px 0 #000;margin:2px;letter-spacing:5px;line-height:1}
 .sub2{font-size:13px;letter-spacing:4px;color:#ffcc00;margin:2px 0 8px;font-weight:800}
 .signature{font-family:cursive;font-size:15px;color:#ff9ec6;opacity:.9;margin:0 0 5px;transform:rotate(-3deg)}
@@ -13,7 +15,7 @@
 .dot:nth-child(4){background:#00ff88;box-shadow:0 0 12px #00ff88;animation-delay:.45s}
 .dot:nth-child(5){background:#ff00ff;box-shadow:0 0 12px #ff00ff;animation-delay:.6s}
 @keyframes b{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.3)}}
-.machine{max-width:430px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000}
+.machine{max-width:430px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4)}
 .topRow{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .iconBtn{background:#222;border:2px solid #ffd700;color:#fff;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer}
 .iconBtn.active{background:#ffd700;color:#000}
@@ -27,8 +29,6 @@
 .jackpotBar{background:#000;border:2px solid #ff0000;border-radius:10px;padding:8px;margin-bottom:8px}
 .jackpotBar b{color:#ffd700;font-size:18px}
 .jackpotBar span{color:#ff2d55;font-size:20px;font-weight:900;animation:b .5s infinite alternate;display:block}
-.progress{height:14px;background:#222;border-radius:10px;overflow:hidden;margin:8px 0;border:1px solid #ffd700}
-#progFill{height:100%;width:0%;background:linear-gradient(90deg,#ff0000,#ffd700,#00ff88);transition:.3s}
 .bal{background:#000;border:2px solid #ffd700;border-radius:10px;padding:9px;font-weight:900;font-size:16px}
 .bal span{color:#00ff88}
 .betRow{display:flex;gap:6px;justify-content:center;margin:10px 0}
@@ -47,7 +47,9 @@
 #msg.big{color:#ffd700;font-size:21px;animation:b .4s infinite alternate}
 #jackpotOverlay{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99;padding:20px}
 #jackpotOverlay.show{display:flex}
-.ganyFace{width:170px;height:170px;border-radius:50%;border:6px solid #ffd700;object-fit:cover;box-shadow:0 0 40px #ffd700,0 0 80px #ff00ff;animation:b .4s infinite alternate;background:#333}
+.ganyFace{width:170px;height:170px;border-radius:50%;border:6px solid #ffd700;object-fit:cover;box-shadow:0 0 40px #ffd700,0 0 80px #ff0000;animation:b .4s infinite alternate}
+.wheel{width:230px;height:230px;border-radius:50%;border:8px solid #ffd700;background:conic-gradient(#ff0000 0 30deg,#ffd700 30deg 60deg,#ff00ff 60deg 90deg,#00e5ff 90deg 120deg,#00ff88 120deg 150deg,#ff8800 150deg 180deg,#ff0000 180deg 210deg,#ffd700 210deg 240deg,#ff00ff 240deg 270deg,#00e5ff 270deg 300deg,#00ff88 300deg 330deg,#ff8800 330deg 360deg);display:flex;align-items:center;justify-content:center;box-shadow:0 0 50px #ffd700;position:relative;overflow:hidden}
+@keyframes spinWheel{to{transform:rotate(360deg)}}
 #sideAlert{position:fixed;top:0;bottom:0;width:14px;z-index:98;display:none}
 #sideAlert.left{left:0;background:#ff0000;box-shadow:0 0 30px #ff0000}
 #sideAlert.right{right:0;background:#ffd700;box-shadow:0 0 30px #ffd700}
@@ -55,9 +57,10 @@ body.jackpotMode #sideAlert{display:block;animation:b .2s infinite alternate}
 .welcome{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:100;padding:20px}
 .welcome h1{color:#ffd700;font-size:32px;margin:5px}
 .welcome button{background:#ffd700;border:none;padding:15px 30px;font-size:20px;font-weight:900;border-radius:12px;margin-top:15px}
+.welcome img{width:110px;height:110px;border-radius:50%;border:4px solid #ffd700;object-fit:cover}
 </style></head><body>
 <div id="sideAlert" class="left"></div><div id="sideAlert" class="right"></div>
-<div id="welcome" class="welcome"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg" class="ganyFace" style="width:110px;height:110px"><div style="font-size:50px">🧧🐉</div><h1>WELCOME TO GPO!</h1><p>You have a free gift of</p><h1 style="color:#00ff88">100,000,000 COINS!</h1><p>♾️ MONEY POT: INFINITY! Every 10 spins = MAJOR JACKPOT!</p><button onclick="claim()">CLAIM 100M COINS 🎁</button></div>
+<div id="welcome" class="welcome"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg"><div style="font-size:50px">🧧🐉</div><h1>WELCOME TO GPO!</h1><p>You have a free gift of</p><h1 style="color:#00ff88">100,000,000 COINS!</h1><p>♾️ MONEY POT: INFINITY!</p><button onclick="claim()">CLAIM 100M COINS 🎁</button></div>
 <div id="jackpotOverlay">
 <div style="font-size:28px;color:#ffd700;font-weight:900" id="jackpotTitle">🎉 MAJOR JACKPOT! 🎉</div>
 <div style="margin:12px"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg" class="ganyFace"></div>
@@ -73,33 +76,60 @@ body.jackpotMode #sideAlert{display:block;animation:b .2s infinite alternate}
 <div class="machine">
 <div class="topRow"><span style="font-weight:900">🐉 MORE SCATTER! 🐉</span><div style="display:flex;gap:6px"><button class="iconBtn" id="fullBtn" onclick="toggleFull()">⛶</button><button class="iconBtn" onclick="toggleSettings()">⚙️</button></div></div>
 <div id="settingsPanel">
-<div style="font-weight:900;color:#ffd700">⚙️ SETTINGS</div'vibSwitch').classList.toggle('on',vibOn);}
+<div style="font-weight:900;color:#ffd700">⚙️ SETTINGS</div>
+<div class="setRow"><span>🔊 Casino Sound</span><div class="switch on" id="soundSwitch" onclick="toggleSound()"></div></div>
+<div class="setRow"><span>📳 Vibrate</span><div class="switch on" id="vibSwitch" onclick="toggleVib()"></div></div>
+<div class="setRow"><span>🎵 Background Music</span><div class="switch on" id="musicSwitch" onclick="toggleMusic()"></div></div>
+<div class="setRow"><span>⛶ Full View</span><div class="switch" id="fullSwitch" onclick="toggleFull()"></div></div>
+</div>
+
+<div class="jackpotBar"><b>🔥 ♾️ MONEY POT - INFINITY ♾️ 🔥</b><span id="jackpotPool">₱ 50,000,000,000</span></div>
+
+<div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div>
+<div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button></div>
+<div class="grid" id="grid"></div>
+<div style="font-size:11px;opacity:.7;margin:8px 0">◀ LINE 1 • LINE 2 • LINE 3 ▶ &nbsp; 3 of a kind = WIN!</div>
+<div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button><div class="lever" onclick="spin()">🕹️</div></div>
+<div id="msg">Good luck! Dragon mode on!</div>
+<div style="font-size:11px;opacity:.7;margin-top:8px">🐉 3 Dragons = JACKPOT • ♾️ Pot = INFINITY</div>
+<div style="font-size:11px;opacity:.5;margin-top:8px">For fun only • Just for passing time</div>
+</div>
+<script>
+let bal=100000000, bet=50000, spinNum=0, pot=50000000000;
+let soundOn=true, vibOn=true, musicOn=true;
+let audioCtx=null, musicTimer=null;
+let sym=["🐉","🧧","🀄","🏮","🐲","♍","♑","🪭","🐅"];
+let grid=document.getElementById('grid');
+for(let i=0;i<9;i++){let d=document.createElement('div');d.className='cell';d.innerText=sym[Math.floor(Math.random()*sym.length)];grid.appendChild(d);}
+function getCtx(){if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state=='suspended') audioCtx.resume();return audioCtx;}
+function claim(){document.getElementById('welcome').style.display='none';startMusic();doVibrate(200);}
+function toggleSettings(){document.getElementById('settingsPanel').classList.toggle('show');}
+function toggleSound(){soundOn=!soundOn;document.getElementById('soundSwitch').classList.toggle('on',soundOn);if(!soundOn) stopMusic(); else if(musicOn) startMusic();}
+function toggleVib(){vibOn=!vibOn;document.getElementById('vibSwitch').classList.toggle('on',vibOn);}
 function toggleMusic(){musicOn=!musicOn;document.getElementById('musicSwitch').classList.toggle('on',musicOn);if(musicOn&&soundOn) startMusic(); else stopMusic();}
-function toggleFull(){
-  if(!document.fullscreenElement){
-    if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
-    else if(document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
-    document.getElementById('fullSwitch').classList.add('on');document.getElementById('fullBtn').classList.add('active');document.getElementById('fullBtn').innerText='✕';
-  }else{
-    if(document.exitFullscreen) document.exitFullscreen();
-    document.getElementById('fullSwitch').classList.remove('on');document.getElementById('fullBtn').classList.remove('active');document.getElementById('fullBtn').innerText='⛶';
-  }
-}
-document.addEventListener('fullscreenchange',()=>{let isFull=!!document.fullscreenElement;document.getElementById('fullSwitch').classList.toggle('on',isFull);document.getElementById('fullBtn').classList.toggle('active',isFull);document.getElementById('fullBtn').innerText=isFull?'✕':'⛶';});
+function toggleFull(){if(!document.fullscreenElement){if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();}else{if(document.exitFullscreen) document.exitFullscreen();}}
+document.addEventListener('fullscreenchange',()=>{let isFull=!!document.fullscreenElement;document.getElementById('fullSwitch').classList.toggle('on',isFull);document.getElementById('fullBtn').innerText=isFull?'✕':'⛶';});
 function doVibrate(p){if(vibOn && navigator.vibrate) navigator.vibrate(p);}
 function beep(f=500,d=0.07){if(!soundOn) return;try{let a=getCtx();let o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=f;g.gain.value=0.12;o.start();o.stop(a.currentTime+d);}catch(e){}}
 function startMusic(){if(!soundOn||!musicOn) return;if(musicTimer) return;let notes=[523,659,784,880,784,659,523,659,784,1046,880,784];let i=0;musicTimer=setInterval(()=>{if(!soundOn||!musicOn) return;beep(notes[i%notes.length],0.18);if(i%4==0) beep(130,0.15);i++;},280);}
 function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null;}}
 function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+(v>=1000000?(v/1000000)+'M':(v/1000)+'K');}
+function updatePot(){
+  pot += bet*10 + 100000;
+  document.getElementById('jackpotPool').innerText='₱ '+pot.toLocaleString()+' ♾️';
+}
 function spin(){
-if(bal<bet){document.getElementById('msg').innerText='Wala ka ng coins! Refresh mo!';return;}
-bal-=bet;document.getElementById('bal').innerText=bal.toLocaleString();
+if(bal<bet){document.getElementById('msg').innerText='Out of coins! Refresh to play again!';return;}
+bal-=bet; spinNum++; updatePot();
+document.getElementById('bal').innerText=bal.toLocaleString();
 let btn=document.getElementById('spinBtn');btn.disabled=true;
 let cells=[...document.querySelectorAll('.cell')];cells.forEach(c=>c.classList.remove('win'));
-document.getElementById('msg').innerText='Umiikot...';document.getElementById('msg').classList.remove('big');
+document.getElementById('msg').innerText='Spinning...';document.getElementById('msg').classList.remove('big');
 let cols=[[0,3,6],[1,4,7],[2,5,8]];
 let final=[];for(let i=0;i<9;i++) final.push(sym[Math.floor(Math.random()*sym.length)]);
-if(Math.random()<0.35){let winSym=sym[Math.floor(Math.random()*sym.length)];let row=Math.floor(Math.random()*3)*3;final[row]=winSym;final[row+1]=winSym;final[row+2]=winSym;}
+let isMajor = (spinNum % 10 == 0);
+if(isMajor){let row=3;final[row]="🐉";final[row+1]="🐉";final[row+2]="🐉";}
+else if(Math.random()<0.35){let winSym=sym[Math.floor(Math.random()*sym.length)];let row=Math.floor(Math.random()*3)*3;final[row]=winSym;final[row+1]=winSym;final[row+2]=winSym;}
 cols.forEach((col,ci)=>{
   let t=0; let iv=setInterval(()=>{col.forEach(idx=>{cells[idx].innerText=sym[Math.floor(Math.random()*sym.length)];cells[idx].classList.add('spin')});beep(300+ci*100,0.05);t++;
   if(t>8+ci*6){clearInterval(iv);col.forEach(idx=>{cells[idx].innerText=final[idx];cells[idx].classList.remove('spin')});beep(900);
@@ -120,20 +150,21 @@ function finish(){
     }
   });
   if(lines>=2) wins*=2;
-  if(dragon){triggerJackpot();btn.disabled=false;return;}
+  if(dragon){triggerJackpot(isMajor);btn.disabled=false;return;}
   bal+=wins;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=wins.toLocaleString();
   let m=document.getElementById('msg');
   if(wins>0){m.innerText='🎉 LINE WIN! +'+wins.toLocaleString()+'!';m.classList.add('big');beep(1200,0.2);doVibrate([100,50,100]);}
-  else m.innerText='Sayang! Spin ulit bro!';
+  else m.innerText='So close! Spin again!';
   btn.disabled=false;
 }
 }
-function triggerJackpot(){
+function triggerJackpot(isMajor){
   document.body.classList.add('jackpotMode');
   doVibrate([500,200,500,200,1000]);
   document.getElementById('jackpotOverlay').classList.add('show');
-  let bonus=Math.floor(Math.random()*5000000)+1000000;
-  document.getElementById('jackpotText').innerText='Nanalo ka ng +'+bonus.toLocaleString()+'!';
+  document.getElementById('jackpotTitle').innerText=isMajor?'🎉 MAJOR GANY JACKPOT! 🎉':'🎉 GANY JACKPOT! 🎉';
+  let bonus=isMajor ? Math.floor(pot*0.02)+5000000 : Math.floor(Math.random()*5000000)+1000000;
+  document.getElementById('jackpotText').innerText='You won +'+bonus.toLocaleString()+'!';
   document.getElementById('jackpotText').dataset.bonus=bonus;
   beep(1200,0.3);setTimeout(()=>beep(1500,0.3),200);setTimeout(()=>beep(1800,0.3),400);
 }
@@ -142,7 +173,7 @@ function closeJackpot(){
   bal+=bonus;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=bonus.toLocaleString();
   document.getElementById('jackpotOverlay').classList.remove('show');
   document.body.classList.remove('jackpotMode');
-  document.getElementById('msg').innerText='🐉 DRAGON JACKPOT! +'+bonus.toLocaleString()+'!';
+  document.getElementById('msg').innerText='🐉 GANY JACKPOT! +'+bonus.toLocaleString()+'!';
   document.getElementById('msg').classList.add('big');
 }
 </script></body></html>
