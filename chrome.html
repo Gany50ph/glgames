@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPO - GANY PALIPAS ORAS</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+  body{background:#0f0f1a;color:white;text-align:center;padding:20px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+  .dragon{font-size:80px;animation:bounce 1s infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+  h1{font-size:32px;color:#FFD700;margin:10px 0}
+  h2{font-size:18px;color:#ff6b00;margin-bottom:5px}
+  p{color:#ccc;margin:10px 0 20px;font-size:15px;line-height:1.5}
+  .btn-chrome{background:#FFD700;color:#000;font-size:22px;font-weight:900;padding:20px 30px;border:none;border-radius:50px;width:100%;max-width:350px;cursor:pointer;box-shadow:0 0 25px #FFD700;margin:10px 0}
+  .btn-chrome:active{transform:scale(0.95)}
+  .btn-normal{background:#222;color:white;font-size:14px;padding:12px 20px;border:1px solid #444;border-radius:30px;width:100%;max-width:350px;cursor:pointer;margin-top:10px}
+  .warn{background:#ff2222;color:white;padding:10px 15px;border-radius:10px;font-size:13px;font-weight:bold;margin:20px 0}
+  .coins{color:#FFD700;font-weight:bold}
+</style>
+</head>
+<body>
+
+<div class="dragon">🐉</div>
+<h1>GPO</h1>
+<h2>GANY PALIPAS ORAS</h2>
+<p>Hello guys! I made a PASS TIME GAME for you! 🤭😂<br>
+Get <span class="coins">FREE 100M COINS!</span> 💰<br>
+🎰 SLOT + 50 BILLION JACKPOT!</p>
+
+<div class="warn">⚠️ IMPORTANT: Open in CHROME so your LEVEL will SAVE! ⚠️<br>Don't play in WhatsApp browser!</div>
+
+<button class="btn-chrome" onclick="openChrome()">▶️ PLAY IN CHROME ◀️</button>
+<p style="font-size:12px;color:#888;">Tap the button above 👆</p>
+
+<button class="btn-normal" onclick="openNormal()">Play in this browser anyway</button>
+
+<script>
+function openChrome(){
+  // Android - Force Chrome
+  window.location.href = "intent://gany50ph.github.io/glgames/#Intent;scheme=https;package=com.android.chrome;end";
+  // Fallback after 1.5 sec if Chrome not installed
+  setTimeout(()=>{
+    window.location.href = "https://gany50ph.github.io/glgames/";
+  }, 1500);
+}
+function openNormal(){
+  window.location.href = "https://gany50ph.github.io/glgames/";
+}
+</script>
+
+</body>
+</html>
