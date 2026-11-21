@@ -75,4 +75,6 @@ updateLevelUI();updateWheelLabels();document.getElementById('bal').innerText=bal
 if(claimed){let w=document.getElementById('welcome');if(w)w.remove();}
 setInterval(saveGame,2000);
 window.addEventListener('beforeunload',saveGame);
+function updateWheelLabels(){let w=document.getElementById('wheel');if(!w)return;w.innerHTML='';let pots=getWheelPots();pots.forEach((p,i)=>{let s=document.createElement('div');s.className='wheelLabel';s.innerText=p.label;let ang=i*22.5+11.25;let rad=(ang-90)*Math.PI/180;s.style.left=(125+Math.cos(rad)*82-36)+'px';s.style.top=(125+Math.sin(rad)*82-10)+'px';let rot=ang+90;s.style.transform='rotate('+rot+'deg)';w.appendChild(s);});}
+updateWheelLabels();
 </script></body></html>  
