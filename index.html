@@ -75,7 +75,6 @@ updateLevelUI();updateWheelLabels();document.getElementById('bal').innerText=bal
 if(claimed){let w=document.getElementById('welcome');if(w)w.remove();}
 setInterval(saveGame,2000);
 window.addEventListener('beforeunload',saveGame);
-function updateWheelLabels(){let w=document.getElementById('wheel');if(!w)return;w.innerHTML='';let pots=getWheelPots();pots.forEach((p,i)=>{let s=document.createElement('div');s.className='wheelLabel';s.innerText=p.label;let ang=i*22.5+11.25;let rad=(ang-90)*Math.PI/180;s.style.left=(125+Math.cos(rad)*82-36)+'px';s.style.top=(125+Math.sin(rad)*82-10)+'px';let rot=ang+90;s.style.transform='rotate('+rot+'deg)';w.appendChild(s);});}
+function updateWheelLabels(){let w=document.getElementById('wheel');if(!w)return;w.innerHTML='';let pots=getWheelPots();pots.forEach((p,i)=>{let s=document.createElement('div');s.className='wheelLabel';s.innerText=p.label;let ang=i*22.5+11.25;let rad=(ang-90)*Math.PI/180;s.style.left=(125+Math.cos(rad)*88-13)+'px';s.style.top=(125+Math.sin(rad)*88-31)+'px';s.style.transform='none';s.style.writingMode='vertical-rl';s.style.width='26px';s.style.height='62px';s.style.fontSize='11px';w.appendChild(s);});}
 updateWheelLabels();
-let _vs=document.createElement('style');_vs.innerHTML='.wheelLabel{writing-mode:vertical-rl!important;text-orientation:mixed!important;width:26px!important;height:62px!important;font-size:11px!important;line-height:1.2!important;padding:4px 2px!important;white-space:nowrap!important}';document.head.appendChild(_vs);
 </script></body></html>  
