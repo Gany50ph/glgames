@@ -16,6 +16,8 @@
 .dot:nth-child(4){background:#00ff88;box-shadow:0 0 12px #00ff88;animation-delay:.45s}
 .dot:nth-child(5){background:#ff00ff;box-shadow:0 0 12px #ff00ff;animation-delay:.6s}
 @keyframes b{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.3)}}
+@keyframes blinkArrow{0%,100%{opacity:1;transform:translateX(-50%) scale(1)}50%{opacity:.2;transform:translateX(-50%) scale(1.4)}}
+@keyframes blinkText{0%,100%{opacity:1}50%{opacity:.2}}
 .machine{max-width:400px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:16px;padding:10px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4)}
 .topRow{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
 .iconBtn{background:#222;border:2px solid #ffd700;color:#fff;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer}
@@ -63,14 +65,15 @@
 #jackpotOverlay.show{display:flex}
 .ganyFace{width:100px;height:100px;border-radius:50%;border:5px solid #ffd700;object-fit:cover;box-shadow:0 0 30px #ffd700,0 0 60px #ff0000;animation:b .4s infinite alternate}
 .wheelWrap{position:relative;width:250px;height:250px;margin:10px auto}
-.wheelPointer{position:absolute;top:-8px;left:50%;transform:translateX(-50%);z-index:6;font-size:30px;text-shadow:0 2px 5px #000}
+.wheelPointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:6;font-size:36px;text-shadow:0 0 15px #ffd700,0 2px 5px #000;animation:blinkArrow .5s infinite}
+.wheelGuide{font-size:14px;font-weight:900;color:#ffd700;animation:blinkText .6s infinite;margin:2px}
 #wheel{width:250px;height:250px;border-radius:50%;border:6px solid #ffd700;box-shadow:0 0 40px #ffd700;position:relative;overflow:hidden;background:conic-gradient(#ff2d55 0 45deg,#ffd700 45deg 90deg,#00e5ff 90deg 135deg,#00ff88 135deg 180deg,#ff00ff 180deg 225deg,#ff8800 225deg 270deg,#8b5cf6 270deg 315deg,#ff0000 315deg 360deg)}
 .wheelLabel{position:absolute;font-size:11px;font-weight:900;color:#fff;text-shadow:1px 1px 2px #000;text-align:center;width:60px;pointer-events:none}
-#wheelCenterBtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;background:radial-gradient(circle,#fff,#ffd700);border:4px solid #ff0000;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4;cursor:pointer;box-shadow:0 0 20px #ffd700}
+#wheelCenterBtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92px;height:92px;background:radial-gradient(circle,#fff,#ffd700);border:4px solid #ff0000;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4;cursor:pointer;box-shadow:0 0 25px #ffd700;animation:b .6s infinite alternate}
 #wheelCenterBtn:active{transform:translate(-50%,-50%) scale(.92)}
-#wheelCenterBtn .arrow{font-size:22px;line-height:1;color:#ff0000}
-#wheelCenterBtn .txt{font-size:13px;font-weight:900;color:#000;line-height:1}
-#wheelCenterBtn.disabled{opacity:.5;pointer-events:none}
+#wheelCenterBtn .arrow{font-size:24px;line-height:1;color:#ff0000}
+#wheelCenterBtn .txt{font-size:14px;font-weight:900;color:#000;line-height:1}
+#wheelCenterBtn.disabled{opacity:.5;pointer-events:none;animation:none}
 #rouletteNum{font-size:30px;font-weight:900;color:#ffd700;min-height:38px;text-shadow:0 0 20px #ffd700}
 #sideAlert{position:fixed;top:0;bottom:0;width:12px;z-index:98;display:none}
 #sideAlert.left{left:0;background:#ff0000;box-shadow:0 0 30px #ff0000}
@@ -91,8 +94,8 @@ body.blackout{background:#000}
 <div style="margin:6px"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg" class="ganyFace"></div>
 <div style="font-weight:900;color:#fff;font-size:16px">GANY'S JACKPOT! 🔥</div>
 <div class="carnival"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-<div style="font-size:12px">👇 PINDUTIN MO SA GITNA! 👇</div>
-<div class="wheelWrap"><div class="wheelPointer">▼</div><div id="wheel"></div><button id="wheelCenterBtn" onclick="spinWheel()"><span class="arrow">▼</span><span class="txt">SPIN!</span><span style="font-size:10px">🐉</span></button></div>
+<div class="wheelGuide">👇 PINDUTIN MO SA GITNA! 👇</div>
+<div class="wheelWrap"><div class="wheelPointer">▼</div><div id="wheel"></div><button id="wheelCenterBtn" onclick="spinWheel()"><span class="arrow">▼</span><span class="txt">SPIN!</span><span style="font-size:11px">🐉</span></button></div>
 <div id="rouletteNum">Good Luck!</div>
 <div id="jackpotText" style="font-size:18px;font-weight:900;color:#00ff88;margin:6px">Pindutin ang gitna para umikot!</div>
 <button id="collectBtn" onclick="closeJackpot()" style="display:none;margin-top:10px;background:#ffd700;border:none;padding:12px 25px;font-weight:900;border-radius:10px">COLLECT! 💰</button>
@@ -151,31 +154,16 @@ function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null;}}
 function setBet(v,el){if(isSpinning) return;bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+(v>=1000000?(v/1000000)+'M':(v/1000)+'K');}
 function updatePot(){pot += bet*10 + 100000;document.getElementById('jackpotPool').innerText='₱ '+pot.toLocaleString()+' ♾️';}
 function setSpinLock(lock){isSpinning=lock;document.getElementById('spinBtn').disabled=lock;document.getElementById('leverBtn').classList.toggle('disabled',lock);}
-// AUTO / MANUAL MODE
 function setMode(mode){
-if(mode=='auto'){
-autoMode=true;
-document.getElementById('autoBtn').classList.add('on');
-document.getElementById('manualBtn').classList.remove('on');
-document.getElementById('autoBtn').innerText='⏹️ STOP AUTO';
-document.getElementById('msg').innerText='🤖 AUTO SPIN ON! Relax ka lang!';
-startAuto();
-}else{
-autoMode=false;
-if(autoTimer){clearTimeout(autoTimer);autoTimer=null;}
-document.getElementById('autoBtn').classList.remove('on');
-document.getElementById('manualBtn').classList.add('on');
-document.getElementById('autoBtn').innerText='▶️ AUTO SPIN';
-document.getElementById('msg').innerText='✋ MANUAL MODE - Ikaw na mag-spin!';
-}
+if(mode=='auto'){autoMode=true;document.getElementById('autoBtn').classList.add('on');document.getElementById('manualBtn').classList.remove('on');document.getElementById('autoBtn').innerText='⏹️ STOP AUTO';document.getElementById('msg').innerText='🤖 AUTO SPIN ON! Relax ka lang!';startAuto();}
+else{autoMode=false;if(autoTimer){clearTimeout(autoTimer);autoTimer=null;}document.getElementById('autoBtn').classList.remove('on');document.getElementById('manualBtn').classList.add('on');document.getElementById('autoBtn').innerText='▶️ AUTO SPIN';document.getElementById('msg').innerText='✋ MANUAL MODE - Ikaw na mag-spin!';}
 }
 function startAuto(){
 if(!autoMode) return;
-if(isSpinning) {autoTimer=setTimeout(startAuto,500); return;}
-if(document.getElementById('jackpotOverlay').classList.contains('show')){autoTimer=setTimeout(startAuto,800); return;}
+if(isSpinning){autoTimer=setTimeout(startAuto,500);return;}
+if(document.getElementById('jackpotOverlay').classList.contains('show')){autoTimer=setTimeout(startAuto,800);return;}
 if(bal<bet){setMode('manual');document.getElementById('msg').innerText='Out of coins! Auto stopped!';return;}
-spin();
-autoTimer=setTimeout(startAuto,1800);
+spin();autoTimer=setTimeout(startAuto,1800);
 }
 function spin(){
 if(isSpinning) return;
@@ -200,12 +188,7 @@ cols.forEach((col,ci)=>{
 function finish(){
   let cells2=[...document.querySelectorAll('.cell')];
   let allDragon=final.every(v=>v=="🐉");
-  if(allDragon){
-    document.body.classList.add('blackout');
-    cells2.forEach(c=>c.classList.add('win'));
-    spinsSinceJackpot=0; scheduleIndex=(scheduleIndex+1)%jackpotSchedule.length;
-    triggerJackpot(); setSpinLock(false); return;
-  }
+  if(allDragon){document.body.classList.add('blackout');cells2.forEach(c=>c.classList.add('win'));spinsSinceJackpot=0;scheduleIndex=(scheduleIndex+1)%jackpotSchedule.length;triggerJackpot();setSpinLock(false);return;}
   document.getElementById('last').innerText='0';
   document.getElementById('msg').innerText=autoMode?'🤖 AUTO - So close! Next spin...':'So close! Only Dragon Blackout wins!';
   setSpinLock(false);
@@ -221,7 +204,7 @@ function triggerJackpot(){
   document.getElementById('rouletteNum').innerText='Good Luck!';
   let btn=document.getElementById('wheelCenterBtn');
   btn.classList.remove('disabled');
-  btn.innerHTML='<span class="arrow">▼</span><span class="txt">SPIN!</span><span style="font-size:10px">🐉</span>';
+  btn.innerHTML='<span class="arrow">▼</span><span class="txt">SPIN!</span><span style="font-size:11px">🐉</span>';
   isWheelSpinning=false;
 }
 function spinWheel(){
@@ -232,4 +215,37 @@ btn.classList.add('disabled');
 btn.innerHTML='<span class="arrow">▼</span><span class="txt">...</span>';
 document.getElementById('jackpotText').innerText='Umiikot... Good Luck!';
 document.getElementById('rouletteNum').innerText='Spinning...';
-let weights=[30,25,20,12,6,4,2,1];l
+let weights=[30,25,20,12,6,4,2,1];let total=weights.reduce((a,b)=>a+b,0);let r=Math.random()*total;let targetIdx=0;let acc=0;
+for(let i=0;i<weights.length;i++){acc+=weights[i];if(r<=acc){targetIdx=i;break;}}
+let target=wheelPots[targetIdx];
+currentJackpotBonus=target.val;
+let startAngle=wheelRotation % 360;
+let targetCenter=targetIdx*45+22.5;
+let finalAngle=360*5 + (360 - targetCenter) + Math.random()*20 - 10;
+let totalRotate=finalAngle;
+let duration=4200; let startTime=null;
+let wheel=document.getElementById('wheel');
+let lastTick=0;
+function animate(ts){
+if(!startTime) startTime=ts;
+let p=(ts-startTime)/duration;
+if(p>=1){wheelRotation=startAngle+totalRotate;wheel.style.transform='rotate('+wheelRotation+'deg)';document.getElementById('rouletteNum').innerText='₱ '+target.val.toLocaleString()+'!';document.getElementById('jackpotText').innerText='You won +'+target.val.toLocaleString()+'!';document.getElementById('collectBtn').style.display='inline-block';beep(1200,0.3);setTimeout(()=>beep(1500,0.3),200);setTimeout(()=>beep(1800,0.4),400);doVibrate([300,100,300,100,500]);isWheelSpinning=false;return;}
+let eased=1-Math.pow(1-p,4);
+let current=startAngle + totalRotate*eased;
+wheel.style.transform='rotate('+current+'deg)';
+let tick=Math.floor(current/45);
+if(tick!==lastTick){lastTick=tick;beep(400+(tick%8)*80,0.04);}
+requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+}
+function closeJackpot(){
+  let bonus=currentJackpotBonus;
+  bal+=bonus;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=bonus.toLocaleString();
+  document.getElementById('jackpotOverlay').classList.remove('show');
+  document.body.classList.remove('jackpotMode');document.body.classList.remove('blackout');
+  document.getElementById('msg').innerText='🐉 BLACKOUT JACKPOT! +'+bonus.toLocaleString()+'!';
+  document.getElementById('msg').classList.add('big');
+  if(autoMode){autoTimer=setTimeout(startAuto,800);}
+}
+</script></body></html>
