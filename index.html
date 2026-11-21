@@ -2,72 +2,92 @@
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>GPO - GANY PALIPAS ORAS</title>
 <style>
-*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px;overflow-x:hidden}
-body:fullscreen{background:#0a0618;padding:5px}
-body:fullscreen .machine{max-width:100%}
-.top{font-size:52px;font-weight:900;color:#ffd700;text-shadow:0 0 20px #ff0000,0 0 30px #ffd700,3px 3px 0 #000;margin:2px;letter-spacing:5px;line-height:1}
-.sub2{font-size:13px;letter-spacing:4px;color:#ffcc00;margin:2px 0 8px;font-weight:800}
-.signature{font-family:cursive;font-size:15px;color:#ff9ec6;opacity:.9;margin:0 0 5px;transform:rotate(-3deg)}
-.lights{display:flex;justify-content:center;gap:8px;margin:8px}
-.dot{width:13px;height:13px;border-radius:50%;background:#ff2d55;box-shadow:0 0 12px #ff2d55;animation:b .6s infinite alternate}
+*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:6px;overflow-x:hidden}
+.phFlag{position:fixed;top:8px;right:8px;z-index:200;background:rgba(0,0,0,.7);border:2px solid #ffd700;border-radius:12px;padding:4px 6px;text-align:center;box-shadow:0 0 15px rgba(255,215,0,.5)}
+.phFlag .flag{font-size:28px;line-height:1;display:block}
+.phFlag .phTxt{font-size:9px;font-weight:900;color:#ffd700;letter-spacing:1px}
+.top{font-size:38px;font-weight:900;color:#ffd700;text-shadow:0 0 20px #ff0000,0 0 30px #ffd700,3px 3px 0 #000;margin:1px;letter-spacing:5px;line-height:1}
+.sub2{font-size:11px;letter-spacing:4px;color:#ffcc00;margin:1px 0 4px;font-weight:800}
+.signature{font-family:cursive;font-size:13px;color:#ff9ec6;opacity:.9;margin:0 0 2px;transform:rotate(-3deg)}
+.lights{display:flex;justify-content:center;gap:6px;margin:4px}
+.dot{width:10px;height:10px;border-radius:50%;background:#ff2d55;box-shadow:0 0 12px #ff2d55;animation:b .6s infinite alternate}
 .dot:nth-child(2){background:#00e5ff;box-shadow:0 0 12px #00e5ff;animation-delay:.15s}
 .dot:nth-child(3){background:#ffd700;box-shadow:0 0 12px #ffd700;animation-delay:.3s}
 .dot:nth-child(4){background:#00ff88;box-shadow:0 0 12px #00ff88;animation-delay:.45s}
 .dot:nth-child(5){background:#ff00ff;box-shadow:0 0 12px #ff00ff;animation-delay:.6s}
 @keyframes b{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.3)}}
-.machine{max-width:430px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4)}
-.topRow{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.iconBtn{background:#222;border:2px solid #ffd700;color:#fff;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer}
-.iconBtn.active{background:#ffd700;color:#000}
-#settingsPanel{display:none;background:#111;border:2px solid #ffd700;border-radius:12px;padding:12px;margin:10px 0;text-align:left}
+.machine{max-width:400px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:16px;padding:10px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4)}
+.topRow{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+.iconBtn{background:#222;border:2px solid #ffd700;color:#fff;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer}
+#settingsPanel{display:none;background:#111;border:2px solid #ffd700;border-radius:12px;padding:10px;margin:8px 0;text-align:left}
 #settingsPanel.show{display:block}
-.setRow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #333}
-.switch{width:52px;height:28px;background:#444;border-radius:20px;position:relative;cursor:pointer}
+.setRow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #333;font-size:13px}
+.switch{width:46px;height:24px;background:#444;border-radius:20px;position:relative;cursor:pointer}
 .switch.on{background:#00ff88}
-.switch:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%}
-.switch.on:after{left:27px}
-.jackpotBar{background:#000;border:2px solid #ff0000;border-radius:10px;padding:8px;margin-bottom:8px}
-.jackpotBar b{color:#ffd700;font-size:18px}
-.jackpotBar span{color:#ff2d55;font-size:20px;font-weight:900;animation:b .5s infinite alternate;display:block}
-.bal{background:#000;border:2px solid #ffd700;border-radius:10px;padding:9px;font-weight:900;font-size:16px}
+.switch:after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%}
+.switch.on:after{left:24px}
+.jackpotBar{background:#000;border:2px solid #ff0000;border-radius:10px;padding:6px;margin-bottom:6px}
+.jackpotBar b{color:#ffd700;font-size:15px}
+#jackpotPool{color:#ff2d55;font-size:19px;font-weight:900;display:block}
+.carnival{display:flex;justify-content:center;gap:5px;margin:4px 0}
+.carnival span{width:8px;height:8px;border-radius:50%;animation:b .5s infinite alternate}
+.carnival span:nth-child(1){background:#ff2d55;box-shadow:0 0 10px #ff2d55}
+.carnival span:nth-child(2){background:#ffd700;box-shadow:0 0 10px #ffd700;animation-delay:.1s}
+.carnival span:nth-child(3){background:#00e5ff;box-shadow:0 0 10px #00e5ff;animation-delay:.2s}
+.carnival span:nth-child(4){background:#00ff88;box-shadow:0 0 10px #00ff88;animation-delay:.3s}
+.carnival span:nth-child(5){background:#ff00ff;box-shadow:0 0 10px #ff00ff;animation-delay:.4s}
+.carnival span:nth-child(6){background:#ff8800;box-shadow:0 0 10px #ff8800;animation-delay:.5s}
+.bal{background:#000;border:2px solid #ffd700;border-radius:8px;padding:7px;font-weight:900;font-size:14px}
 .bal span{color:#00ff88}
-.betRow{display:flex;gap:6px;justify-content:center;margin:10px 0}
-.betRow button{background:#222;color:#fff;border:1px solid #666;padding:7px 10px;border-radius:20px;font-weight:800}
+.betRow{display:flex;gap:5px;justify-content:center;margin:7px 0}
+.betRow button{background:#222;color:#fff;border:1px solid #666;padding:6px 9px;border-radius:20px;font-weight:800;font-size:12px}
 .betRow button.on{background:#ffd700;color:#000}
-.grid{background:#fff;border:4px solid #111;border-radius:14px;padding:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.cell{height:72px;background:linear-gradient(180deg,#fff,#ffe6a3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:42px;border:2px solid #d4af37;color:#000}
-.cell.win{background:#ffd700;transform:scale(1.1);box-shadow:0 0 25px #ffd700}
+.grid{background:#fff;border:3px solid #111;border-radius:12px;padding:6px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.cell{height:54px;background:linear-gradient(180deg,#fff,#ffe6a3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:32px;border:2px solid #d4af37;color:#000}
+.cell.win{background:#ffd700;transform:scale(1.08);box-shadow:0 0 20px #ffd700}
 .cell.spin{animation:sp .12s infinite}
-@keyframes sp{0%{transform:translateY(-6px);filter:blur(2px)}50%{transform:translateY(6px)}100%{transform:translateY(-6px)}}
-.controls{display:flex;gap:10px;margin-top:10px}
-#spinBtn{flex:1;background:linear-gradient(180deg,#ffe45e,#ff2222);border:none;border-bottom:5px solid #800000;padding:15px;font-size:21px;font-weight:900;border-radius:13px;color:#fff;text-shadow:1px 1px 0 #000}
+@keyframes sp{0%{transform:translateY(-5px);filter:blur(2px)}50%{transform:translateY(5px)}100%{transform:translateY(-5px)}}
+.controls{display:flex;gap:8px;margin-top:8px}
+#spinBtn{flex:1;background:linear-gradient(180deg,#ffe45e,#ff2222);border:none;border-bottom:4px solid #800000;padding:12px;font-size:18px;font-weight:900;border-radius:11px;color:#fff;text-shadow:1px 1px 0 #000}
 #spinBtn:disabled{opacity:.6}
-.lever{width:54px;background:#222;border:3px solid #ffd700;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px}
-#msg{min-height:26px;margin-top:10px;font-weight:800;color:#00ff88;font-size:17px}
-#msg.big{color:#ffd700;font-size:21px;animation:b .4s infinite alternate}
-#jackpotOverlay{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99;padding:20px}
+.lever{width:48px;background:#222;border:3px solid #ffd700;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+#msg{min-height:22px;margin-top:7px;font-weight:800;color:#00ff88;font-size:14px}
+#msg.big{color:#ffd700;font-size:18px;animation:b .4s infinite alternate}
+#jackpotOverlay{position:fixed;inset:0;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99;padding:12px}
 #jackpotOverlay.show{display:flex}
-.ganyFace{width:170px;height:170px;border-radius:50%;border:6px solid #ffd700;object-fit:cover;box-shadow:0 0 40px #ffd700,0 0 80px #ff0000;animation:b .4s infinite alternate}
-.wheel{width:230px;height:230px;border-radius:50%;border:8px solid #ffd700;background:conic-gradient(#ff0000 0 30deg,#ffd700 30deg 60deg,#ff00ff 60deg 90deg,#00e5ff 90deg 120deg,#00ff88 120deg 150deg,#ff8800 150deg 180deg,#ff0000 180deg 210deg,#ffd700 210deg 240deg,#ff00ff 240deg 270deg,#00e5ff 270deg 300deg,#00ff88 300deg 330deg,#ff8800 330deg 360deg);display:flex;align-items:center;justify-content:center;box-shadow:0 0 50px #ffd700;position:relative;overflow:hidden}
-@keyframes spinWheel{to{transform:rotate(360deg)}}
-#sideAlert{position:fixed;top:0;bottom:0;width:14px;z-index:98;display:none}
+.ganyFace{width:110px;height:110px;border-radius:50%;border:5px solid #ffd700;object-fit:cover;box-shadow:0 0 30px #ffd700,0 0 60px #ff0000;animation:b .4s infinite alternate}
+.rouletteBox{background:#111;border:3px solid #ffd700;border-radius:14px;padding:10px;width:100%;max-width:340px;text-align:center}
+#rouletteNum{font-size:38px;font-weight:900;color:#ffd700;min-height:50px;text-shadow:0 0 20px #ffd700}
+#rouletteLabel{font-size:12px;color:#fff;opacity:.8}
+.rouletteDots{display:flex;justify-content:center;gap:6px;margin:6px 0}
+.rouletteDots span{padding:5px 7px;background:#222;border-radius:8px;font-size:11px;font-weight:800;border:1px solid #444}
+.rouletteDots span.hit{background:#ffd700;color:#000;transform:scale(1.15)}
+#sideAlert{position:fixed;top:0;bottom:0;width:12px;z-index:98;display:none}
 #sideAlert.left{left:0;background:#ff0000;box-shadow:0 0 30px #ff0000}
 #sideAlert.right{right:0;background:#ffd700;box-shadow:0 0 30px #ffd700}
 body.jackpotMode #sideAlert{display:block;animation:b .2s infinite alternate}
-.welcome{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:100;padding:20px}
-.welcome h1{color:#ffd700;font-size:32px;margin:5px}
-.welcome button{background:#ffd700;border:none;padding:15px 30px;font-size:20px;font-weight:900;border-radius:12px;margin-top:15px}
-.welcome img{width:110px;height:110px;border-radius:50%;border:4px solid #ffd700;object-fit:cover}
+.welcome{position:fixed;inset:0;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:100;padding:16px}
+.welcome h1{color:#ffd700;font-size:28px;margin:4px}
+.welcome button{background:#ffd700;border:none;padding:13px 26px;font-size:18px;font-weight:900;border-radius:12px;margin-top:12px}
+.welcome img{width:100px;height:100px;border-radius:50%;border:4px solid #ffd700;object-fit:cover}
 </style></head><body>
+<div class="phFlag"><span class="flag">🇵🇭</span><span class="phTxt">PHILIPPINES</span></div>
 <div id="sideAlert" class="left"></div><div id="sideAlert" class="right"></div>
-<div id="welcome" class="welcome"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg"><div style="font-size:50px">🧧🐉</div><h1>WELCOME TO GPO!</h1><p>You have a free gift of</p><h1 style="color:#00ff88">100,000,000 COINS!</h1><p>♾️ MONEY POT: INFINITY!</p><button onclick="claim()">CLAIM 100M COINS 🎁</button></div>
+<div id="welcome" class="welcome"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg"><div style="font-size:44px">🧧🐉</div><h1>WELCOME TO GPO!</h1><p style="margin:4px">You have a free gift of</p><h1 style="color:#00ff88">100,000,000 COINS!</h1><p style="margin:4px">♾️ MONEY POT: INFINITY!</p><button onclick="claim()">CLAIM 100M COINS 🎁</button></div>
+
 <div id="jackpotOverlay">
-<div style="font-size:28px;color:#ffd700;font-weight:900" id="jackpotTitle">🎉 MAJOR JACKPOT! 🎉</div>
-<div style="margin:12px"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg" class="ganyFace"></div>
-<div style="font-weight:900;color:#fff;font-size:20px">GANY'S JACKPOT! 🔥</div>
-<div id="jackpotText" style="font-size:26px;font-weight:900;color:#00ff88;margin:12px">Spinning...</div>
-<div style="font-size:12px;opacity:.8">♾️ MONEY POT: INFINITY - Never runs out!</div>
-<button onclick="closeJackpot()" style="margin-top:15px;background:#ffd700;border:none;padding:12px 25px;font-weight:900;border-radius:10px">COLLECT! 💰</button></div>
+<div style="font-size:24px;color:#ffd700;font-weight:900" id="jackpotTitle">🎉 MAJOR JACKPOT! 🎉</div>
+<div style="margin:8px"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg" class="ganyFace"></div>
+<div style="font-weight:900;color:#fff;font-size:16px">GANY'S JACKPOT! 🔥</div>
+<div class="rouletteBox">
+<div class="carnival"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div id="rouletteLabel">🎡 JACKPOT ROULETTE - 3x ROLLING...</div>
+<div id="rouletteNum">₱ 1,000,000,000</div>
+<div class="rouletteDots" id="rouletteDots"></div>
+<div id="jackpotText" style="font-size:18px;font-weight:900;color:#00ff88;margin:6px">Spinning...</div>
+</div>
+<button id="collectBtn" onclick="closeJackpot()" style="display:none;margin-top:12px;background:#ffd700;border:none;padding:12px 25px;font-weight:900;border-radius:10px">COLLECT! 💰</button>
+</div>
 
 <div class="top">GPO</div>
 <div class="sub2">GANY PALIPAS ORAS</div>
@@ -83,22 +103,24 @@ body.jackpotMode #sideAlert{display:block;animation:b .2s infinite alternate}
 <div class="setRow"><span>⛶ Full View</span><div class="switch" id="fullSwitch" onclick="toggleFull()"></div></div>
 </div>
 
-<div class="jackpotBar"><b>🔥 ♾️ MONEY POT - INFINITY ♾️ 🔥</b><span id="jackpotPool">₱ 50,000,000,000</span></div>
+<div class="jackpotBar"><div class="carnival"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><b>🔥 ♾️ MONEY POT - INFINITY ♾️ 🔥</b><span id="jackpotPool">₱ 50,000,000,000</span></div>
 
 <div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div>
 <div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button></div>
 <div class="grid" id="grid"></div>
-<div style="font-size:11px;opacity:.7;margin:8px 0">◀ LINE 1 • LINE 2 • LINE 3 ▶ &nbsp; 3 of a kind = WIN!</div>
+<div style="font-size:10px;opacity:.7;margin:6px 0">◀ ➡️ Horizontal • ⬇️ Vertical • ↘️ Diagonal • 〰️ Zigzag ▶ &nbsp; 3 of a kind = WIN!</div>
 <div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button><div class="lever" onclick="spin()">🕹️</div></div>
 <div id="msg">Good luck! Dragon mode on!</div>
-<div style="font-size:11px;opacity:.7;margin-top:8px">🐉 3 Dragons = JACKPOT • ♾️ Pot = INFINITY</div>
-<div style="font-size:11px;opacity:.5;margin-top:8px">For fun only • Just for passing time</div>
+<div style="font-size:10px;opacity:.7;margin-top:4px">🐉 3 Dragons = JACKPOT • 10 Ways to WIN! • ♾️ Pot = INFINITY</div>
+<div style="font-size:10px;opacity:.5;margin-top:3px">For fun only • Just for passing time • 🇵🇭 Proud Pinoy!</div>
 </div>
 <script>
 let bal=100000000, bet=50000, spinNum=0, pot=50000000000;
 let soundOn=true, vibOn=true, musicOn=true;
 let audioCtx=null, musicTimer=null;
+let jackpotCount=0, currentJackpotBonus=0;
 let sym=["🐉","🧧","🀄","🏮","🐲","♍","♑","🪭","🐅"];
+let patterns=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6],[0,4,2],[6,4,8]];
 let grid=document.getElementById('grid');
 for(let i=0;i<9;i++){let d=document.createElement('div');d.className='cell';d.innerText=sym[Math.floor(Math.random()*sym.length)];grid.appendChild(d);}
 function getCtx(){if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state=='suspended') audioCtx.resume();return audioCtx;}
@@ -114,10 +136,7 @@ function beep(f=500,d=0.07){if(!soundOn) return;try{let a=getCtx();let o=a.creat
 function startMusic(){if(!soundOn||!musicOn) return;if(musicTimer) return;let notes=[523,659,784,880,784,659,523,659,784,1046,880,784];let i=0;musicTimer=setInterval(()=>{if(!soundOn||!musicOn) return;beep(notes[i%notes.length],0.18);if(i%4==0) beep(130,0.15);i++;},280);}
 function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null;}}
 function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+(v>=1000000?(v/1000000)+'M':(v/1000)+'K');}
-function updatePot(){
-  pot += bet*10 + 100000;
-  document.getElementById('jackpotPool').innerText='₱ '+pot.toLocaleString()+' ♾️';
-}
+function updatePot(){pot += bet*10 + 100000;document.getElementById('jackpotPool').innerText='₱ '+pot.toLocaleString()+' ♾️';}
 function spin(){
 if(bal<bet){document.getElementById('msg').innerText='Out of coins! Refresh to play again!';return;}
 bal-=bet; spinNum++; updatePot();
@@ -128,8 +147,8 @@ document.getElementById('msg').innerText='Spinning...';document.getElementById('
 let cols=[[0,3,6],[1,4,7],[2,5,8]];
 let final=[];for(let i=0;i<9;i++) final.push(sym[Math.floor(Math.random()*sym.length)]);
 let isMajor = (spinNum % 10 == 0);
-if(isMajor){let row=3;final[row]="🐉";final[row+1]="🐉";final[row+2]="🐉";}
-else if(Math.random()<0.35){let winSym=sym[Math.floor(Math.random()*sym.length)];let row=Math.floor(Math.random()*3)*3;final[row]=winSym;final[row+1]=winSym;final[row+2]=winSym;}
+if(isMajor){final[3]="🐉";final[4]="🐉";final[5]="🐉";}
+else if(Math.random()<0.45){let winSym=sym[Math.floor(Math.random()*sym.length)];let pat=patterns[Math.floor(Math.random()*patterns.length)];pat.forEach(idx=>final[idx]=winSym);}
 cols.forEach((col,ci)=>{
   let t=0; let iv=setInterval(()=>{col.forEach(idx=>{cells[idx].innerText=sym[Math.floor(Math.random()*sym.length)];cells[idx].classList.add('spin')});beep(300+ci*100,0.05);t++;
   if(t>8+ci*6){clearInterval(iv);col.forEach(idx=>{cells[idx].innerText=final[idx];cells[idx].classList.remove('spin')});beep(900);
@@ -138,10 +157,10 @@ cols.forEach((col,ci)=>{
 });
 function finish(){
   let wins=0,lines=0,dragon=false;
-  [[0,1,2],[3,4,5],[6,7,8]].forEach(row=>{
-    if(final[row[0]]==final[row[1]] && final[row[1]]==final[row[2]]){
-      lines++; row.forEach(i=>cells[i].classList.add('win'));
-      let s=final[row[0]];
+  patterns.forEach(pat=>{
+    if(final[pat[0]]==final[pat[1]] && final[pat[1]]==final[pat[2]]){
+      lines++; pat.forEach(i=>cells[i].classList.add('win'));
+      let s=final[pat[0]];
       if(s=="🐉") dragon=true;
       else if(s=="🀄") wins+=bet*20;
       else if(s=="🧧") wins+=bet*15;
@@ -150,30 +169,61 @@ function finish(){
     }
   });
   if(lines>=2) wins*=2;
+  if(lines>=3) wins*=2;
   if(dragon){triggerJackpot(isMajor);btn.disabled=false;return;}
   bal+=wins;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=wins.toLocaleString();
   let m=document.getElementById('msg');
-  if(wins>0){m.innerText='🎉 LINE WIN! +'+wins.toLocaleString()+'!';m.classList.add('big');beep(1200,0.2);doVibrate([100,50,100]);}
+  if(wins>0){m.innerText='🎉 '+lines+' WAY WIN! +'+wins.toLocaleString()+'!';m.classList.add('big');beep(1200,0.2);doVibrate([100,50,100]);}
   else m.innerText='So close! Spin again!';
   btn.disabled=false;
 }
+}
+function getJackpotAmount(){
+  jackpotCount++;
+  let cycle = (jackpotCount-1)%5;
+  if(cycle==0) return 50000000000;
+  if(cycle==1) return 20000000000;
+  if(cycle==2) return 3000000000;
+  if(cycle==3) return 6000000000;
+  return 50000000000;
 }
 function triggerJackpot(isMajor){
   document.body.classList.add('jackpotMode');
   doVibrate([500,200,500,200,1000]);
   document.getElementById('jackpotOverlay').classList.add('show');
+  document.getElementById('collectBtn').style.display='none';
   document.getElementById('jackpotTitle').innerText=isMajor?'🎉 MAJOR GANY JACKPOT! 🎉':'🎉 GANY JACKPOT! 🎉';
-  let bonus=isMajor ? Math.floor(pot*0.02)+5000000 : Math.floor(Math.random()*5000000)+1000000;
-  document.getElementById('jackpotText').innerText='You won +'+bonus.toLocaleString()+'!';
-  document.getElementById('jackpotText').dataset.bonus=bonus;
-  beep(1200,0.3);setTimeout(()=>beep(1500,0.3),200);setTimeout(()=>beep(1800,0.3),400);
+  let target = getJackpotAmount();
+  currentJackpotBonus = target;
+  let amounts=[1000000000,3000000000,6000000000,10000000000,20000000000,50000000000];
+  let dots=document.getElementById('rouletteDots');
+  dots.innerHTML=''; amounts.forEach(a=>{let s=document.createElement('span');s.innerText=(a/1000000000)+'B';dots.appendChild(s);});
+  let totalSteps = amounts.length*3 + amounts.indexOf(target);
+  let step=0;
+  let rouletteTimer=setInterval(()=>{
+    let idx=step%amounts.length;
+    document.getElementById('rouletteNum').innerText='₱ '+amounts[idx].toLocaleString();
+    [...dots.children].forEach((d,i)=>d.classList.toggle('hit',i==idx));
+    beep(400+idx*80,0.06);
+    step++;
+    if(step>totalSteps){
+      clearInterval(rouletteTimer);
+      document.getElementById('rouletteNum').innerText='₱ '+target.toLocaleString();
+      document.getElementById('rouletteLabel').innerText='🎉 YOU HIT THE JACKPOT! 🎉';
+      document.getElementById('jackpotText').innerText='You won +'+target.toLocaleString()+'!';
+      document.getElementById('collectBtn').style.display='inline-block';
+      beep(1200,0.3);setTimeout(()=>beep(1500,0.3),200);setTimeout(()=>beep(1800,0.4),400);
+      doVibrate([300,100,300,100,500]);
+    }
+  },120);
 }
 function closeJackpot(){
-  let bonus=parseInt(document.getElementById('jackpotText').dataset.bonus||1000000);
+  let bonus=currentJackpotBonus;
   bal+=bonus;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=bonus.toLocaleString();
   document.getElementById('jackpotOverlay').classList.remove('show');
   document.body.classList.remove('jackpotMode');
   document.getElementById('msg').innerText='🐉 GANY JACKPOT! +'+bonus.toLocaleString()+'!';
   document.getElementById('msg').classList.add('big');
+  document.getElementById('rouletteLabel').innerText='🎡 JACKPOT ROULETTE - 3x ROLLING...';
 }
 </script></body></html>
