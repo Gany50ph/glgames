@@ -75,4 +75,102 @@ body.jackpotMode #sideAlert{display:block;animation:b .2s infinite alternate}
 <div style="font-weight:900;color:#ffd700;margin-bottom:5px">⚙️ SETTINGS</div>
 <div class="setRow"><span>🔊 Casino Sound (Tuloy-tuloy)</span><div class="switch on" id="soundSwitch" onclick="toggleSound()"></div></div>
 <div class="setRow"><span>📳 Vibrate</span><div class="switch on" id="vibSwitch" onclick="toggleVib()"></div></div>
-<div class="setRow"><span>
+<div class="setRow"><span>🎵 Background Music</span><div class="switch on" id="musicSwitch" onclick="toggleMusic()"></div></div>
+<div class="setRow"><span>⛶ Full View / Full Screen</span><div class="switch" id="fullSwitch" onclick="toggleFull()"></div></div>
+<div style="font-size:11px;opacity:.6;margin-top:6px">Full View = Mawawala yung address bar, parang totoong app na!</div>
+</div>
+
+<div class="jackpotBar"><b>🔥 MAX JACKPOT 🔥</b><span>₱ 50,000,000,000</span></div>
+<div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div>
+<div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button></div>
+<div class="grid" id="grid"></div>
+<div style="font-size:11px;opacity:.7;margin:8px 0">◀ LINE 1 • LINE 2 • LINE 3 ▶ &nbsp; 3 pareho = PANALO!</div>
+<div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button><div class="lever" onclick="spin()">🕹️</div></div>
+<div id="msg">Good luck bro! Dragon mode na!</div>
+<div style="font-size:11px;opacity:.7;margin-top:8px">🐉 Dragon 3x = JACKPOT MODE • 🀄 3x = x20 • 🧧 3x = x15 • ♍ ♑ 🐲 = x10 • Iba = x5 • 2 lines = x2</div>
+<div style="font-size:11px;opacity:.5;margin-top:8px">For fun only • Palipas Oras lang</div>
+</div>
+<script>
+let bal=100000000, bet=50000;
+let soundOn=true, vibOn=true, musicOn=true;
+let audioCtx=null, musicTimer=null;
+let sym=["🐉","🧧","🀄","🏮","🐲","♍","♑","🪭","🐅"];
+let grid=document.getElementById('grid');
+for(let i=0;i<9;i++){let d=document.createElement('div');d.className='cell';d.innerText=sym[Math.floor(Math.random()*sym.length)];grid.appendChild(d);}
+function getCtx(){if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state=='suspended') audioCtx.resume();return audioCtx;}
+function claim(){document.getElementById('welcome').style.display='none';startMusic();doVibrate(200);}
+function toggleSettings(){document.getElementById('settingsPanel').classList.toggle('show');}
+function toggleSound(){soundOn=!soundOn;document.getElementById('soundSwitch').classList.toggle('on',soundOn);if(!soundOn) stopMusic(); else if(musicOn) startMusic();}
+function toggleVib(){vibOn=!vibOn;document.getElementById('vibSwitch').classList.toggle('on',vibOn);}
+function toggleMusic(){musicOn=!musicOn;document.getElementById('musicSwitch').classList.toggle('on',musicOn);if(musicOn&&soundOn) startMusic(); else stopMusic();}
+function toggleFull(){
+  if(!document.fullscreenElement){
+    if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    else if(document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
+    document.getElementById('fullSwitch').classList.add('on');document.getElementById('fullBtn').classList.add('active');document.getElementById('fullBtn').innerText='✕';
+  }else{
+    if(document.exitFullscreen) document.exitFullscreen();
+    document.getElementById('fullSwitch').classList.remove('on');document.getElementById('fullBtn').classList.remove('active');document.getElementById('fullBtn').innerText='⛶';
+  }
+}
+document.addEventListener('fullscreenchange',()=>{let isFull=!!document.fullscreenElement;document.getElementById('fullSwitch').classList.toggle('on',isFull);document.getElementById('fullBtn').classList.toggle('active',isFull);document.getElementById('fullBtn').innerText=isFull?'✕':'⛶';});
+function doVibrate(p){if(vibOn && navigator.vibrate) navigator.vibrate(p);}
+function beep(f=500,d=0.07){if(!soundOn) return;try{let a=getCtx();let o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=f;g.gain.value=0.12;o.start();o.stop(a.currentTime+d);}catch(e){}}
+function startMusic(){if(!soundOn||!musicOn) return;if(musicTimer) return;let notes=[523,659,784,880,784,659,523,659,784,1046,880,784];let i=0;musicTimer=setInterval(()=>{if(!soundOn||!musicOn) return;beep(notes[i%notes.length],0.18);if(i%4==0) beep(130,0.15);i++;},280);}
+function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null;}}
+function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+(v>=1000000?(v/1000000)+'M':(v/1000)+'K');}
+function spin(){
+if(bal<bet){document.getElementById('msg').innerText='Wala ka ng coins! Refresh mo!';return;}
+bal-=bet;document.getElementById('bal').innerText=bal.toLocaleString();
+let btn=document.getElementById('spinBtn');btn.disabled=true;
+let cells=[...document.querySelectorAll('.cell')];cells.forEach(c=>c.classList.remove('win'));
+document.getElementById('msg').innerText='Umiikot...';document.getElementById('msg').classList.remove('big');
+let cols=[[0,3,6],[1,4,7],[2,5,8]];
+let final=[];for(let i=0;i<9;i++) final.push(sym[Math.floor(Math.random()*sym.length)]);
+if(Math.random()<0.35){let winSym=sym[Math.floor(Math.random()*sym.length)];let row=Math.floor(Math.random()*3)*3;final[row]=winSym;final[row+1]=winSym;final[row+2]=winSym;}
+cols.forEach((col,ci)=>{
+  let t=0; let iv=setInterval(()=>{col.forEach(idx=>{cells[idx].innerText=sym[Math.floor(Math.random()*sym.length)];cells[idx].classList.add('spin')});beep(300+ci*100,0.05);t++;
+  if(t>8+ci*6){clearInterval(iv);col.forEach(idx=>{cells[idx].innerText=final[idx];cells[idx].classList.remove('spin')});beep(900);
+    if(ci==2){setTimeout(finish,200);}
+  }},90);
+});
+function finish(){
+  let wins=0,lines=0,dragon=false;
+  [[0,1,2],[3,4,5],[6,7,8]].forEach(row=>{
+    if(final[row[0]]==final[row[1]] && final[row[1]]==final[row[2]]){
+      lines++; row.forEach(i=>cells[i].classList.add('win'));
+      let s=final[row[0]];
+      if(s=="🐉") dragon=true;
+      else if(s=="🀄") wins+=bet*20;
+      else if(s=="🧧") wins+=bet*15;
+      else if(["♍","♑","🐲"].includes(s)) wins+=bet*10;
+      else wins+=bet*5;
+    }
+  });
+  if(lines>=2) wins*=2;
+  if(dragon){triggerJackpot();btn.disabled=false;return;}
+  bal+=wins;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=wins.toLocaleString();
+  let m=document.getElementById('msg');
+  if(wins>0){m.innerText='🎉 LINE WIN! +'+wins.toLocaleString()+'!';m.classList.add('big');beep(1200,0.2);doVibrate([100,50,100]);}
+  else m.innerText='Sayang! Spin ulit bro!';
+  btn.disabled=false;
+}
+}
+function triggerJackpot(){
+  document.body.classList.add('jackpotMode');
+  doVibrate([500,200,500,200,1000]);
+  document.getElementById('jackpotOverlay').classList.add('show');
+  let bonus=Math.floor(Math.random()*5000000)+1000000;
+  document.getElementById('jackpotText').innerText='Nanalo ka ng +'+bonus.toLocaleString()+'!';
+  document.getElementById('jackpotText').dataset.bonus=bonus;
+  beep(1200,0.3);setTimeout(()=>beep(1500,0.3),200);setTimeout(()=>beep(1800,0.3),400);
+}
+function closeJackpot(){
+  let bonus=parseInt(document.getElementById('jackpotText').dataset.bonus||1000000);
+  bal+=bonus;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=bonus.toLocaleString();
+  document.getElementById('jackpotOverlay').classList.remove('show');
+  document.body.classList.remove('jackpotMode');
+  document.getElementById('msg').innerText='🐉 DRAGON JACKPOT! +'+bonus.toLocaleString()+'!';
+  document.getElementById('msg').classList.add('big');
+}
+</script></body></html>
