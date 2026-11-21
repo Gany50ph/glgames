@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GL GAMES - Real Slot</title>
+<title>GPO - GANY PALIPAS ORAS</title>
 <style>
-*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px}
-.top{font-size:32px;font-weight:900;color:#ffd700;text-shadow:0 0 15px #ff00ff,2px 2px 0 #000;margin:5px}
+*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px;overflow-x:hidden}
+.top{font-size:52px;font-weight:900;color:#ffd700;text-shadow:0 0 20px #ff0000,0 0 30px #ffd700,3px 3px 0 #000;margin:2px;letter-spacing:5px;line-height:1}
+.sub2{font-size:13px;letter-spacing:4px;color:#ffcc00;margin:2px 0 8px;font-weight:800}
+.signature{font-family:cursive;font-size:15px;color:#ff9ec6;opacity:.9;margin:0 0 5px;transform:rotate(-3deg)}
 .lights{display:flex;justify-content:center;gap:8px;margin:8px}
 .dot{width:13px;height:13px;border-radius:50%;background:#ff2d55;box-shadow:0 0 12px #ff2d55;animation:b .6s infinite alternate}
 .dot:nth-child(2){background:#00e5ff;box-shadow:0 0 12px #00e5ff;animation-delay:.15s}
@@ -11,53 +13,88 @@
 .dot:nth-child(4){background:#00ff88;box-shadow:0 0 12px #00ff88;animation-delay:.45s}
 .dot:nth-child(5){background:#ff00ff;box-shadow:0 0 12px #ff00ff;animation-delay:.6s}
 @keyframes b{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.3)}}
-.machine{max-width:420px;margin:auto;background:linear-gradient(180deg,#2d2d5a,#13132b);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4)}
-.bal{background:#000;border:2px solid #ffd700;border-radius:10px;padding:9px;font-weight:900;font-size:18px}
+.machine{max-width:430px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4);position:relative}
+.jackpotBar{background:#000;border:2px solid #ff0000;border-radius:10px;padding:8px;margin-bottom:8px}
+.jackpotBar b{color:#ffd700;font-size:18px}
+.jackpotBar span{color:#ff2d55;font-size:20px;font-weight:900;animation:b .5s infinite alternate;display:block}
+.bal{background:#000;border:2px solid #ffd700;border-radius:10px;padding:9px;font-weight:900;font-size:16px}
 .bal span{color:#00ff88}
 .betRow{display:flex;gap:6px;justify-content:center;margin:10px 0}
 .betRow button{background:#222;color:#fff;border:1px solid #666;padding:7px 10px;border-radius:20px;font-weight:800}
 .betRow button.on{background:#ffd700;color:#000}
-.grid{background:#fff;border:4px solid #111;border-radius:14px;padding:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;box-shadow:inset 0 0 20px rgba(0,0,0,.3)}
-.cell{height:72px;background:linear-gradient(180deg,#fff,#dbe0ff);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:42px;border:2px solid #ccc;box-shadow:inset 0 -8px 12px rgba(0,0,0,.15);transition:.2s}
-.cell.win{background:#ffd700;transform:scale(1.08);box-shadow:0 0 20px #ffd700;border-color:#ffaa00}
+.grid{background:#fff;border:4px solid #111;border-radius:14px;padding:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.cell{height:72px;background:linear-gradient(180deg,#fff,#ffe6a3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:42px;border:2px solid #d4af37;color:#000;box-shadow:inset 0 -8px 12px rgba(0,0,0,.15)}
+.cell.win{background:#ffd700;transform:scale(1.1);box-shadow:0 0 25px #ffd700}
 .cell.spin{animation:sp .12s infinite}
 @keyframes sp{0%{transform:translateY(-6px);filter:blur(2px)}50%{transform:translateY(6px)}100%{transform:translateY(-6px)}}
-.payline{font-size:11px;opacity:.7;margin:8px 0}
 .controls{display:flex;gap:10px;margin-top:10px}
-#spinBtn{flex:1;background:linear-gradient(180deg,#ffe45e,#ffaa00);border:none;border-bottom:5px solid #b87700;padding:15px;font-size:21px;font-weight:900;border-radius:13px}
-#spinBtn:active{transform:translateY(3px)}
+#spinBtn{flex:1;background:linear-gradient(180deg,#ffe45e,#ff2222);border:none;border-bottom:5px solid #800000;padding:15px;font-size:21px;font-weight:900;border-radius:13px;color:#fff;text-shadow:1px 1px 0 #000}
 #spinBtn:disabled{opacity:.6}
 .lever{width:54px;background:#222;border:3px solid #ffd700;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px}
-.lever:active{transform:rotate(-15deg)}
 #msg{min-height:26px;margin-top:10px;font-weight:800;color:#00ff88;font-size:17px}
 #msg.big{color:#ffd700;font-size:21px;animation:b .4s infinite alternate}
+/* JACKPOT MODE */
+#jackpotOverlay{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99;padding:20px}
+#jackpotOverlay.show{display:flex}
+.wheel{width:220px;height:220px;border-radius:50%;border:8px solid #ffd700;background:conic-gradient(#ff0000 0 30deg,#ffd700 30deg 60deg,#ff00ff 60deg 90deg,#00e5ff 90deg 120deg,#00ff88 120deg 150deg,#ff8800 150deg 180deg,#ff0000 180deg 210deg,#ffd700 210deg 240deg,#ff00ff 240deg 270deg,#00e5ff 270deg 300deg,#00ff88 300deg 330deg,#ff8800 330deg 360deg);display:flex;align-items:center;justify-content:center;font-size:50px;animation:spinWheel 1s linear infinite;box-shadow:0 0 50px #ffd700}
+@keyframes spinWheel{to{transform:rotate(360deg)}}
+#sideAlert{position:fixed;top:0;bottom:0;width:14px;z-index:98;display:none}
+#sideAlert.left{left:0;background:#ff0000;box-shadow:0 0 30px #ff0000}
+#sideAlert.right{right:0;background:#ffd700;box-shadow:0 0 30px #ffd700}
+body.jackpotMode #sideAlert{display:block;animation:b .2s infinite alternate}
+body.jackpotMode{background:#2a0000}
+.welcome{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:100;padding:20px}
+.welcome h1{color:#ffd700;font-size:32px;margin:5px}
+.welcome button{background:#ffd700;border:none;padding:15px 30px;font-size:20px;font-weight:900;border-radius:12px;margin-top:15px}
 </style></head><body>
-<div class="top">🎰 GL GAMES</div><p style="margin:0;opacity:.8">by Gany50ph • REAL 3-LINE SLOT</p>
+<div id="sideAlert" class="left"></div><div id="sideAlert" class="right"></div>
+
+<div id="welcome" class="welcome">
+<div style="font-size:70px">🧧🐉</div>
+<h1>WELCOME TO GPO!</h1>
+<p>May libre kang</p>
+<h1 style="color:#00ff88">100,000,000 COINS!</h1>
+<p>MAX JACKPOT: 50 BILLION!</p>
+<button onclick="claim()">CLAIM 100M COINS 🎁</button>
+</div>
+
+<div id="jackpotOverlay"><div style="font-size:30px;color:#ffd700;font-weight:900">🎉 JACKPOT MODE! 🎉</div><div class="wheel">🐉</div><div id="jackpotText" style="font-size:26px;font-weight:900;color:#00ff88;margin:15px">Umiikot...</div><div style="font-size:13px;opacity:.8">MAX JACKPOT: 50,000,000,000</div><button onclick="closeJackpot()" style="margin-top:15px;background:#ffd700;border:none;padding:12px 25px;font-weight:900;border-radius:10px">COLLECT!</button></div>
+
+<div class="top">GPO</div>
+<div class="sub2">GANY PALIPAS ORAS</div>
+<p class="signature">~ Gany Lopez ~</p>
 <div class="lights"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
 <div class="machine">
-<h2 style="margin:5px">✨ SCATTER PA MORE! ✨</h2>
-<div class="bal">💰 BALANCE: <span id="bal">1000</span> | 🏆 WIN: <span id="last">0</span></div>
-<div class="betRow"><button onclick="setBet(50,this)" class="on">BET 50</button><button onclick="setBet(100,this)">BET 100</button><button onclick="setBet(200,this)">BET 200</button></div>
+<div class="jackpotBar"><b>🔥 MAX JACKPOT 🔥</b><span id="jackpotPool">₱ 50,000,000,000</span></div>
+<h2 style="margin:5px">🐉 SCATTER PA MORE! 🐉</h2>
+<div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div>
+<div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button></div>
 <div class="grid" id="grid"></div>
-<div class="payline">◀ LINE 1 • LINE 2 • LINE 3 ▶ &nbsp; 3 pareho sa isang LINE = PANALO!</div>
-<div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50</button><div class="lever" onclick="spin()">🕹️</div></div>
-<div id="msg">Good luck bro! 3 Lines na to!</div>
-<div style="font-size:11px;opacity:.7;margin-top:8px">💎 3x = x20 • ⭐ 3x = x10 • 🍒🍋🔔🍇 = x5 • 2 lines = x2 bonus</div>
+<div style="font-size:11px;opacity:.7;margin:8px 0">◀ LINE 1 • LINE 2 • LINE 3 ▶ &nbsp; 3 pareho = PANALO!</div>
+<div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button><div class="lever" onclick="spin()">🕹️</div></div>
+<div id="msg">Good luck bro! Dragon mode na!</div>
+<div style="font-size:11px;opacity:.7;margin-top:8px">🐉 Dragon 3x = JACKPOT MODE • 🀄 3x = x20 • 🧧 3x = x15 • ♍ ♑ 🐲 = x10 • Iba = x5 • 2 lines = x2</div>
+<div style="font-size:11px;opacity:.5;margin-top:8px">For fun only • Palipas Oras lang</div>
 </div>
 <script>
-let bal=1000, bet=50, sym=["🍒","🍋","🔔","⭐","💎","💰","🍇","BAR"];
+let bal=100000000, bet=50000;
+let sym=["🐉","🧧","🀄","🏮","🐲","♍","♑","🪭","🐅"];
+// Chinese motifs + zodiac - no more invisible BAR/STAR
 let grid=document.getElementById('grid');
 for(let i=0;i<9;i++){let d=document.createElement('div');d.className='cell';d.innerText=sym[Math.floor(Math.random()*sym.length)];grid.appendChild(d);}
-function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+bet;}
+function claim(){document.getElementById('welcome').style.display='none';if(navigator.vibrate) navigator.vibrate(200);document.getElementById('msg').innerText='Welcome! 100M na coins mo! Good luck!';}
+function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+(v>=1000000?(v/1000000)+'M':(v/1000)+'K');}
 function beep(f=500){try{let a=new (window.AudioContext||window.webkitAudioContext)();let o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=f;g.gain.value=0.12;o.start();o.stop(a.currentTime+0.07);}catch(e){}}
 function spin(){
 if(bal<bet){document.getElementById('msg').innerText='Wala ka ng coins! Refresh mo!';return;}
-bal-=bet;document.getElementById('bal').innerText=bal;
+bal-=bet;document.getElementById('bal').innerText=bal.toLocaleString();
 let btn=document.getElementById('spinBtn');btn.disabled=true;
 let cells=[...document.querySelectorAll('.cell')];cells.forEach(c=>c.classList.remove('win'));
 document.getElementById('msg').innerText='Umiikot...';document.getElementById('msg').classList.remove('big');
 let cols=[[0,3,6],[1,4,7],[2,5,8]];
 let final=[];for(let i=0;i<9;i++) final.push(sym[Math.floor(Math.random()*sym.length)]);
+// Mas mataas chance manalo para tuloy-tuloy laro - style mo bro!
+if(Math.random()<0.35){let winSym=sym[Math.floor(Math.random()*sym.length)];let row=Math.floor(Math.random()*3)*3;final[row]=winSym;final[row+1]=winSym;final[row+2]=winSym;}
 cols.forEach((col,ci)=>{
   let t=0; let iv=setInterval(()=>{col.forEach(idx=>{cells[idx].innerText=sym[Math.floor(Math.random()*sym.length)];cells[idx].classList.add('spin')});beep(300+ci*100);t++;
   if(t>8+ci*6){clearInterval(iv);col.forEach(idx=>{cells[idx].innerText=final[idx];cells[idx].classList.remove('spin')});beep(900);
@@ -65,20 +102,42 @@ cols.forEach((col,ci)=>{
   }},90);
 });
 function finish(){
-  let wins=0,lines=0;
-  // 3 horizontal lines: rows 0-2,3-5,6-8
+  let wins=0,lines=0,dragon=false;
   [[0,1,2],[3,4,5],[6,7,8]].forEach(row=>{
     if(final[row[0]]==final[row[1]] && final[row[1]]==final[row[2]]){
       lines++; row.forEach(i=>cells[i].classList.add('win'));
-      let s=final[row[0]]; let mult=s=="💎"?20:s=="⭐"?10:5; wins+=bet*mult;
+      let s=final[row[0]];
+      if(s=="🐉"){dragon=true;}
+      else if(s=="🀄") wins+=bet*20;
+      else if(s=="🧧") wins+=bet*15;
+      else if(["♍","♑","🐲"].includes(s)) wins+=bet*10;
+      else wins+=bet*5;
     }
   });
   if(lines>=2) wins*=2;
-  bal+=wins;document.getElementById('bal').innerText=bal;document.getElementById('last').innerText=wins;
+  if(dragon){triggerJackpot();btn.disabled=false;return;}
+  bal+=wins;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=wins.toLocaleString();
   let m=document.getElementById('msg');
-  if(wins>0){m.innerText=lines>=2?'🔥 DOUBLE LINE! +'+wins+'!':'🎉 LINE WIN! +'+wins+'!';m.classList.add('big');beep(1200);}
+  if(wins>0){m.innerText='🎉 LINE WIN! +'+wins.toLocaleString()+'!';m.classList.add('big');beep(1200);if(navigator.vibrate) navigator.vibrate([100,50,100]);}
   else m.innerText='Sayang! Spin ulit bro!';
   btn.disabled=false;
 }
+}
+function triggerJackpot(){
+  document.body.classList.add('jackpotMode');
+  if(navigator.vibrate) navigator.vibrate([500,200,500,200,1000]);
+  document.getElementById('jackpotOverlay').classList.add('show');
+  let bonus=Math.floor(Math.random()*5000000)+1000000;
+  document.getElementById('jackpotText').innerText='Nanalo ka ng +'+bonus.toLocaleString()+'!';
+  document.getElementById('jackpotText').dataset.bonus=bonus;
+  beep(1200);setTimeout(()=>beep(1500),200);setTimeout(()=>beep(1800),400);
+}
+function closeJackpot(){
+  let bonus=parseInt(document.getElementById('jackpotText').dataset.bonus||1000000);
+  bal+=bonus;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=bonus.toLocaleString();
+  document.getElementById('jackpotOverlay').classList.remove('show');
+  document.body.classList.remove('jackpotMode');
+  document.getElementById('msg').innerText='🐉 DRAGON JACKPOT! +'+bonus.toLocaleString()+'!';
+  document.getElementById('msg').classList.add('big');
 }
 </script></body></html>
