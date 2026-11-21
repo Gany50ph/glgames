@@ -24,9 +24,10 @@ body{display:flex !important;flex-direction:column !important;align-items:center
 <script>
 let saved=JSON.parse(localStorage.getItem('gpo_save')||'{}');
 let claimed=saved.claimed||false;
-let bal=saved.bal||100000000,bet=50000,spinNum=0,totalSpins=saved.totalSpins||0,pot=50000000000,soundOn=true,vibOn=true,musicOn=true,audioCtx=null,musicTimer=null,currentJackpotBonus=0,jackpotSchedule=[10,15,20,30],scheduleIndex=0,spinsSinceJackpot=0,isSpinning=false,isWheelSpinning=false,wheelRotation=0,autoMode=false,autoTimer=null,level=saved.level||1,levelXP=saved.levelXP||0;
-function saveGame(){if(!claimed)return;localStorage.setItem('gpo_save',JSON.stringify({bal:bal,level:level,levelXP:levelXP,totalSpins:totalSpins,claimed:true}));}
-setInterval(saveGame,2000);
+let bal=saved.bal||100000000,bet=50000,spinNum=0;
+let level=saved.level||1;
+let levelXP=saved.levelXP||0;
+function saveGame(){localStorage.setItem('gpo_save',JSON.stringify({bal:bal,level:level,levelXP:levelXP,claimed:claimed}));}
 let levelTitles=["NEWBIE","ROOKIE","PRO","MASTER","DRAGON","LEGEND","GPO KING","MYTHIC"];
 function levelNeed(){return level*10;}
 function updateLevelUI(){let t=levelTitles[Math.min(level-1,levelTitles.length-1)];document.getElementById('levelNum').innerText=level;document.getElementById('levelTitle').innerText=t;document.getElementById('levelText').innerText=levelXP+' / '+levelNeed()+' XP to next level';document.getElementById('levelFill').style.width=Math.min(100,levelXP/levelNeed()*100)+'%';}
