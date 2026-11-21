@@ -48,7 +48,6 @@ function hideOutOfCoins(){document.getElementById('outOverlay').classList.remove
 function claimTomorrowBonus(){bal+=5000000;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('msg').innerText='🎁 Rescue! +5,000,000! Good luck! Comeback tomorrow for 100M!';hideOutOfCoins();doVibrate(200);saveGame();}
 function toggleSettings(){document.getElementById('settingsPanel').classList.toggle('show');}
 function toggleSound(){soundOn=!soundOn;document.getElementById('soundSwitch').classList.toggle('on',soundOn);if(!soundOn)stopMusic();else if(musicOn)startMusic();}
-function toggleVib(){vibOn=!vibOn;document.getElementById('vibSwitch').classList.toggle('on',vibOn);
 function toggleVib(){vibOn=!vibOn;document.getElementById('vibSwitch').classList.toggle('on',vibOn);}
 function toggleMusic(){musicOn=!musicOn;document.getElementById('musicSwitch').classList.toggle('on',musicOn);if(musicOn&&soundOn)startMusic();else stopMusic();}
 function toggleFull(){if(!document.fullscreenElement){if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}else{if(document.exitFullscreen)document.exitFullscreen();}}
@@ -62,9 +61,10 @@ function startMusic(){if(musicTimer)return;let notes=[523,659,784,659,523,659,78
 function stopMusic(){clearInterval(musicTimer);musicTimer=null;}
 function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));if(el)el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+v.toLocaleString();}
 function setMode(m){autoMode=(m=='auto');document.getElementById('autoBtn').classList.toggle('on',autoMode);document.getElementById('manualBtn').classList.toggle('on',!autoMode);if(autoMode){spin();}else{clearTimeout(autoTimer);}}
-// ============ CATEGORY 2: SPIN & WINNING CHANCE ============
-function spin(){
-if(isSpinning)return;
+// ============ CATEGORY 2: SPIN & WINNING CHANCE - DITO MO BABAAN/TAASAN PANALO ============
+// WINNING CHANCE: 0.12 = 12% lang manalo. Gusto mo mas mahirap? Gawin mong 0.08 (8%)
+// COLD MODE: 0.05 = 5% lang pag cold. PAYOUT: 💎 x6, 🧧 x4, 🦁🦊🐲 x3, iba x2
+function spin(){if(isSpinning)return;
 if(bal<bet){showOutOfCoins();return;}
 isSpinning=true;bal-=bet;totalSpins++;spinsSinceJackpot++;
 let cells=[...document.querySelectorAll('.cell')];cells.forEach(c=>c.classList.remove('win'));
@@ -76,11 +76,13 @@ beep(300+Math.random()*200,.03);ticks++;
 if(ticks>12){clearInterval(iv);cells.forEach(c=>c.classList.remove('spin'));
 let isCold=spinsSinceJackpot>60;
 let result=[];let wins=0;let winCells=[];
+// 12% CHANCE LANG MANALO PAG HINDI COLD
 if(!isCold&&Math.random()<0.12){
 let p=patterns[Math.floor(Math.random()*patterns.length)];
 let s=sym[Math.floor(Math.random()*sym.length)];
 p.forEach(idx=>{result[idx]=s;});
 for(let i=0;i<9;i++)if(result[i]==undefined)result[i]=sym[Math.floor(Math.random()*sym.length)];
+// PAYOUT - BINABAAN NA
 if(s=="💎")wins+=bet*6;else if(s=="🧧")wins+=bet*4;else if(["🦁","🦊","🐲"].includes(s))wins+=bet*3;else wins+=bet*2;
 winCells=p;
 }else if(isCold&&Math.random()<0.05){
@@ -91,18 +93,20 @@ if(s=="💎")wins+=bet*6;else if(s=="🧧")wins+=bet*4;else if(["🦁","🦊","�
 winCells=p;
 }else{
 for(let i=0;i<9;i++)result[i]=sym[Math.floor(Math.random()*sym.length)];
+// iwas aksidenteng panalo
 let tries=0;while(patterns.some(p=>result[p[0]]==result[p[1]]&&result[p[1]]==result[p[2]])&&tries<20){for(let i=0;i<9;i++)result[i]=sym[Math.floor(Math.random()*sym.length)];tries++;}
 }
 cells.forEach((c,i)=>{c.innerText=result[i];});
 if(wins>0){winCells.forEach(idx=>cells[idx].classList.add('win'));bal+=wins;document.getElementById('last').innerText=wins.toLocaleString();document.getElementById('msg').innerText='🎉 WIN +'+wins.toLocaleString()+'!';document.getElementById('msg').classList.add('big');playBigWin();doVibrate(200);addXP(2);}else{document.getElementById('msg').innerText='Try again! Dragon mode on! 🐉';document.getElementById('msg').classList.remove('big');addXP(1);}
 document.getElementById('bal').innerText=bal.toLocaleString();saveGame();isSpinning=false;document.getElementById('spinBtn').disabled=false;
+// JACKPOT CHECK
 if(spinsSinceJackpot>=jackpotSchedule[scheduleIndex]){showJackpot();}
 else if(autoMode){autoTimer=setTimeout(spin,600);}
 if(bal<bet&&bal<50000){showOutOfCoins();}
 }}
 },80);
-}
-function showJackpot(){document.getElementById('jackpotOverlay').classList.add('show');document.body.classList.add('jackpotMode');document.getElementById('jackpotText').innerText='Tap the center to spin!';document.getElementById('collectBtn').style.display='none';document.getElementById('wheelCenterBtn').classList.remove('disabled');}
+  }
+  function showJackpot(){document.getElementById('jackpotOverlay').classList.add('show');document.body.classList.add('jackpotMode');document.getElementById('jackpotText').innerText='Tap the center to spin!';document.getElementById('collectBtn').style.display='none';document.getElementById('wheelCenterBtn').classList.remove('disabled');}
 function spinWheel(){
 if(isWheelSpinning)return;isWheelSpinning=true;
 document.getElementById('wheelCenterBtn').classList.add('disabled');
