@@ -2,11 +2,7 @@
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>GPO - GANY PALIPAS ORAS</title>
 <style>
-*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px;overflow-x:hidden}
-body:fullscreen{background:#0a0618;padding:5px}
-body:fullscreen .machine{max-width:100%;height:100vh;display:flex;flex-direction:column;justify-content:center}
-body:fullscreen .cell{height:90px;font-size:55px}
-body:fullscreen .top{font-size:65px}
+*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px}
 .top{font-size:52px;font-weight:900;color:#ffd700;text-shadow:0 0 20px #ff0000,0 0 30px #ffd700,3px 3px 0 #000;margin:2px;letter-spacing:5px;line-height:1}
 .sub2{font-size:13px;letter-spacing:4px;color:#ffcc00;margin:2px 0 8px;font-weight:800}
 .signature{font-family:cursive;font-size:15px;color:#ff9ec6;opacity:.9;margin:0 0 5px;transform:rotate(-3deg)}
@@ -17,21 +13,22 @@ body:fullscreen .top{font-size:65px}
 .dot:nth-child(4){background:#00ff88;box-shadow:0 0 12px #00ff88;animation-delay:.45s}
 .dot:nth-child(5){background:#ff00ff;box-shadow:0 0 12px #ff00ff;animation-delay:.6s}
 @keyframes b{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.3)}}
-.machine{max-width:430px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4);position:relative}
+.machine{max-width:430px;margin:auto;background:linear-gradient(180deg,#3a0a0a,#1a0a2e);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000}
 .topRow{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.iconBtn{background:#222;border:2px solid #ffd700;color:#fff;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer;flex-shrink:0}
+.iconBtn{background:#222;border:2px solid #ffd700;color:#fff;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer}
 .iconBtn.active{background:#ffd700;color:#000}
 #settingsPanel{display:none;background:#111;border:2px solid #ffd700;border-radius:12px;padding:12px;margin:10px 0;text-align:left}
 #settingsPanel.show{display:block}
 .setRow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #333}
-.setRow:last-child{border:none}
-.switch{width:52px;height:28px;background:#444;border-radius:20px;position:relative;cursor:pointer;flex-shrink:0}
+.switch{width:52px;height:28px;background:#444;border-radius:20px;position:relative;cursor:pointer}
 .switch.on{background:#00ff88}
-.switch:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.2s}
+.switch:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%}
 .switch.on:after{left:27px}
 .jackpotBar{background:#000;border:2px solid #ff0000;border-radius:10px;padding:8px;margin-bottom:8px}
 .jackpotBar b{color:#ffd700;font-size:18px}
 .jackpotBar span{color:#ff2d55;font-size:20px;font-weight:900;animation:b .5s infinite alternate;display:block}
+.progress{height:14px;background:#222;border-radius:10px;overflow:hidden;margin:8px 0;border:1px solid #ffd700}
+#progFill{height:100%;width:0%;background:linear-gradient(90deg,#ff0000,#ffd700,#00ff88);transition:.3s}
 .bal{background:#000;border:2px solid #ffd700;border-radius:10px;padding:9px;font-weight:900;font-size:16px}
 .bal span{color:#00ff88}
 .betRow{display:flex;gap:6px;justify-content:center;margin:10px 0}
@@ -48,10 +45,9 @@ body:fullscreen .top{font-size:65px}
 .lever{width:54px;background:#222;border:3px solid #ffd700;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px}
 #msg{min-height:26px;margin-top:10px;font-weight:800;color:#00ff88;font-size:17px}
 #msg.big{color:#ffd700;font-size:21px;animation:b .4s infinite alternate}
-#jackpotOverlay{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99;padding:20px}
+#jackpotOverlay{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99;padding:20px}
 #jackpotOverlay.show{display:flex}
-.wheel{width:220px;height:220px;border-radius:50%;border:8px solid #ffd700;background:conic-gradient(#ff0000 0 30deg,#ffd700 30deg 60deg,#ff00ff 60deg 90deg,#00e5ff 90deg 120deg,#00ff88 120deg 150deg,#ff8800 150deg 180deg,#ff0000 180deg 210deg,#ffd700 210deg 240deg,#ff00ff 240deg 270deg,#00e5ff 270deg 300deg,#00ff88 300deg 330deg,#ff8800 330deg 360deg);display:flex;align-items:center;justify-content:center;font-size:50px;animation:spinWheel 1s linear infinite;box-shadow:0 0 50px #ffd700}
-@keyframes spinWheel{to{transform:rotate(360deg)}}
+.ganyFace{width:170px;height:170px;border-radius:50%;border:6px solid #ffd700;object-fit:cover;box-shadow:0 0 40px #ffd700,0 0 80px #ff00ff;animation:b .4s infinite alternate;background:#333}
 #sideAlert{position:fixed;top:0;bottom:0;width:14px;z-index:98;display:none}
 #sideAlert.left{left:0;background:#ff0000;box-shadow:0 0 30px #ff0000}
 #sideAlert.right{right:0;background:#ffd700;box-shadow:0 0 30px #ffd700}
@@ -61,47 +57,23 @@ body.jackpotMode #sideAlert{display:block;animation:b .2s infinite alternate}
 .welcome button{background:#ffd700;border:none;padding:15px 30px;font-size:20px;font-weight:900;border-radius:12px;margin-top:15px}
 </style></head><body>
 <div id="sideAlert" class="left"></div><div id="sideAlert" class="right"></div>
-<div id="welcome" class="welcome"><div style="font-size:70px">🧧🐉</div><h1>WELCOME TO GPO!</h1><p>May libre kang</p><h1 style="color:#00ff88">100,000,000 COINS!</h1><p>MAX JACKPOT: 50 BILLION!</p><button onclick="claim()">CLAIM 100M COINS 🎁</button><p style="font-size:12px;opacity:.6">Pindutin mo para mag-start yung tuloy-tuloy na casino sound!</p></div>
-<div id="jackpotOverlay"><div style="font-size:30px;color:#ffd700;font-weight:900">🎉 JACKPOT MODE! 🎉</div><div class="wheel">🐉</div><div id="jackpotText" style="font-size:26px;font-weight:900;color:#00ff88;margin:15px">Umiikot...</div><div style="font-size:13px;opacity:.8">MAX JACKPOT: 50,000,000,000</div><button onclick="closeJackpot()" style="margin-top:15px;background:#ffd700;border:none;padding:12px 25px;font-weight:900;border-radius:10px">COLLECT!</button></div>
+<div id="welcome" class="welcome"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg" class="ganyFace" style="width:110px;height:110px"><div style="font-size:50px">🧧🐉</div><h1>WELCOME TO GPO!</h1><p>You have a free gift of</p><h1 style="color:#00ff88">100,000,000 COINS!</h1><p>♾️ MONEY POT: INFINITY! Every 10 spins = MAJOR JACKPOT!</p><button onclick="claim()">CLAIM 100M COINS 🎁</button></div>
+<div id="jackpotOverlay">
+<div style="font-size:28px;color:#ffd700;font-weight:900" id="jackpotTitle">🎉 MAJOR JACKPOT! 🎉</div>
+<div style="margin:12px"><img src="https://raw.githubusercontent.com/Gany50ph/glgames/main/IMG-20261121-WA5160.jpg" class="ganyFace"></div>
+<div style="font-weight:900;color:#fff;font-size:20px">GANY'S JACKPOT! 🔥</div>
+<div id="jackpotText" style="font-size:26px;font-weight:900;color:#00ff88;margin:12px">Spinning...</div>
+<div style="font-size:12px;opacity:.8">♾️ MONEY POT: INFINITY - Never runs out!</div>
+<button onclick="closeJackpot()" style="margin-top:15px;background:#ffd700;border:none;padding:12px 25px;font-weight:900;border-radius:10px">COLLECT! 💰</button></div>
 
 <div class="top">GPO</div>
 <div class="sub2">GANY PALIPAS ORAS</div>
 <p class="signature">~ Gany Lopez ~</p>
 <div class="lights"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
 <div class="machine">
-<div class="topRow"><span style="font-weight:900">🐉 SCATTER PA MORE! 🐉</span><div style="display:flex;gap:6px"><button class="iconBtn" id="fullBtn" onclick="toggleFull()" title="Full View">⛶</button><button class="iconBtn" onclick="toggleSettings()">⚙️</button></div></div>
-
+<div class="topRow"><span style="font-weight:900">🐉 MORE SCATTER! 🐉</span><div style="display:flex;gap:6px"><button class="iconBtn" id="fullBtn" onclick="toggleFull()">⛶</button><button class="iconBtn" onclick="toggleSettings()">⚙️</button></div></div>
 <div id="settingsPanel">
-<div style="font-weight:900;color:#ffd700;margin-bottom:5px">⚙️ SETTINGS</div>
-<div class="setRow"><span>🔊 Casino Sound (Tuloy-tuloy)</span><div class="switch on" id="soundSwitch" onclick="toggleSound()"></div></div>
-<div class="setRow"><span>📳 Vibrate</span><div class="switch on" id="vibSwitch" onclick="toggleVib()"></div></div>
-<div class="setRow"><span>🎵 Background Music</span><div class="switch on" id="musicSwitch" onclick="toggleMusic()"></div></div>
-<div class="setRow"><span>⛶ Full View / Full Screen</span><div class="switch" id="fullSwitch" onclick="toggleFull()"></div></div>
-<div style="font-size:11px;opacity:.6;margin-top:6px">Full View = Mawawala yung address bar, parang totoong app na!</div>
-</div>
-
-<div class="jackpotBar"><b>🔥 MAX JACKPOT 🔥</b><span>₱ 50,000,000,000</span></div>
-<div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div>
-<div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button></div>
-<div class="grid" id="grid"></div>
-<div style="font-size:11px;opacity:.7;margin:8px 0">◀ LINE 1 • LINE 2 • LINE 3 ▶ &nbsp; 3 pareho = PANALO!</div>
-<div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button><div class="lever" onclick="spin()">🕹️</div></div>
-<div id="msg">Good luck bro! Dragon mode na!</div>
-<div style="font-size:11px;opacity:.7;margin-top:8px">🐉 Dragon 3x = JACKPOT MODE • 🀄 3x = x20 • 🧧 3x = x15 • ♍ ♑ 🐲 = x10 • Iba = x5 • 2 lines = x2</div>
-<div style="font-size:11px;opacity:.5;margin-top:8px">For fun only • Palipas Oras lang</div>
-</div>
-<script>
-let bal=100000000, bet=50000;
-let soundOn=true, vibOn=true, musicOn=true;
-let audioCtx=null, musicTimer=null;
-let sym=["🐉","🧧","🀄","🏮","🐲","♍","♑","🪭","🐅"];
-let grid=document.getElementById('grid');
-for(let i=0;i<9;i++){let d=document.createElement('div');d.className='cell';d.innerText=sym[Math.floor(Math.random()*sym.length)];grid.appendChild(d);}
-function getCtx(){if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state=='suspended') audioCtx.resume();return audioCtx;}
-function claim(){document.getElementById('welcome').style.display='none';startMusic();doVibrate(200);}
-function toggleSettings(){document.getElementById('settingsPanel').classList.toggle('show');}
-function toggleSound(){soundOn=!soundOn;document.getElementById('soundSwitch').classList.toggle('on',soundOn);if(!soundOn) stopMusic(); else if(musicOn) startMusic();}
-function toggleVib(){vibOn=!vibOn;document.getElementById('vibSwitch').classList.toggle('on',vibOn);}
+<div style="font-weight:900;color:#ffd700">⚙️ SETTINGS</div'vibSwitch').classList.toggle('on',vibOn);}
 function toggleMusic(){musicOn=!musicOn;document.getElementById('musicSwitch').classList.toggle('on',musicOn);if(musicOn&&soundOn) startMusic(); else stopMusic();}
 function toggleFull(){
   if(!document.fullscreenElement){
