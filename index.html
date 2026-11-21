@@ -1,117 +1,84 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GL GAMES - Casino Slot</title>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GL GAMES - Real Slot</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:radial-gradient(circle at 50% 0%,#2a0a4a,#0a0618 60%);color:#fff;font-family:Arial;text-align:center;min-height:100vh;padding:15px;overflow-x:hidden}
-.top{font-size:34px;font-weight:900;letter-spacing:1px;color:#ffd700;text-shadow:0 0 10px #ffd700,0 0 25px #ff00ff,3px 3px 0 #000;margin:8px 0 2px}
-.sub{opacity:.8;margin:0 0 12px}
-.lights{display:flex;justify-content:center;gap:8px;margin:8px 0}
-.dot{width:14px;height:14px;border-radius:50%;background:#ff2d55;box-shadow:0 0 12px #ff2d55;animation:blink .7s infinite alternate}
+*{box-sizing:border-box} body{margin:0;background:#0a0618;color:#fff;font-family:Arial;text-align:center;padding:12px}
+.top{font-size:32px;font-weight:900;color:#ffd700;text-shadow:0 0 15px #ff00ff,2px 2px 0 #000;margin:5px}
+.lights{display:flex;justify-content:center;gap:8px;margin:8px}
+.dot{width:13px;height:13px;border-radius:50%;background:#ff2d55;box-shadow:0 0 12px #ff2d55;animation:b .6s infinite alternate}
 .dot:nth-child(2){background:#00e5ff;box-shadow:0 0 12px #00e5ff;animation-delay:.15s}
 .dot:nth-child(3){background:#ffd700;box-shadow:0 0 12px #ffd700;animation-delay:.3s}
 .dot:nth-child(4){background:#00ff88;box-shadow:0 0 12px #00ff88;animation-delay:.45s}
 .dot:nth-child(5){background:#ff00ff;box-shadow:0 0 12px #ff00ff;animation-delay:.6s}
-@keyframes blink{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.25)}}
-.machine{max-width:430px;margin:auto;background:linear-gradient(180deg,#2b2b4d,#15152e);border:3px solid #ffd700;border-radius:22px;padding:16px;box-shadow:0 20px 50px rgba(0,0,0,.7),inset 0 0 0 3px #000,0 0 30px rgba(255,215,0,.35);position:relative}
-.machine:before{content:"";position:absolute;inset:6px;border:1px dashed rgba(255,215,0,.5);border-radius:16px;pointer-events:none}
-h2{margin:6px 0;font-size:22px;letter-spacing:1px;text-shadow:0 2px 0 #000}
-.bal{background:#000;border:2px solid #ffd700;border-radius:12px;padding:10px;font-size:20px;font-weight:900;margin:10px 0}
+@keyframes b{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.3)}}
+.machine{max-width:420px;margin:auto;background:linear-gradient(180deg,#2d2d5a,#13132b);border:3px solid #ffd700;border-radius:20px;padding:14px;box-shadow:0 20px 50px #000,0 0 30px rgba(255,215,0,.4)}
+.bal{background:#000;border:2px solid #ffd700;border-radius:10px;padding:9px;font-weight:900;font-size:18px}
 .bal span{color:#00ff88}
-.reels{display:flex;gap:10px;justify-content:center;margin:16px 0;perspective:600px}
-.reel{flex:1;height:105px;background:linear-gradient(180deg,#fff,#cfd6ff 45%,#fff 55%,#8a8fa8);border-radius:14px;border:3px solid #111;display:flex;align-items:center;justify-content:center;font-size:58px;box-shadow:inset 0 -12px 18px rgba(0,0,0,.25),inset 0 12px 18px rgba(255,255,255,.9),0 8px 0 #000;transform:rotateX(8deg);transition:transform .15s;overflow:hidden;position:relative}
-.reel:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 30%,transparent 70%,rgba(0,0,0,.35))}
-.spinning{animation:spinReel .12s infinite}
-@keyframes spinReel{0%{transform:rotateX(8deg) translateY(-8px);filter:blur(1px)}50%{transform:rotateX(-6deg) translateY(8px);filter:blur(3px)}100%{transform:rotateX(8deg) translateY(-8px);filter:blur(1px)}}
-.win{animation:winShake .4s infinite}
-@keyframes winShake{0%,100%{transform:scale(1) rotateX(8deg)}50%{transform:scale(1.12) rotateX(0deg);box-shadow:0 0 25px #ffd700}}
-.controls{display:flex;gap:10px;align-items:center;justify-content:center}
-#spinBtn{flex:1;background:linear-gradient(180deg,#ffe45e,#ffaa00);color:#000;border:none;border-bottom:5px solid #b87700;padding:16px;font-size:22px;font-weight:900;border-radius:14px;cursor:pointer;box-shadow:0 6px 20px rgba(255,180,0,.5);transition:.15s}
-#spinBtn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 10px 25px rgba(255,180,0,.8);filter:brightness(1.1)}
-#spinBtn:active{transform:translateY(3px);border-bottom-width:2px}
+.betRow{display:flex;gap:6px;justify-content:center;margin:10px 0}
+.betRow button{background:#222;color:#fff;border:1px solid #666;padding:7px 10px;border-radius:20px;font-weight:800}
+.betRow button.on{background:#ffd700;color:#000}
+.grid{background:#fff;border:4px solid #111;border-radius:14px;padding:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;box-shadow:inset 0 0 20px rgba(0,0,0,.3)}
+.cell{height:72px;background:linear-gradient(180deg,#fff,#dbe0ff);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:42px;border:2px solid #ccc;box-shadow:inset 0 -8px 12px rgba(0,0,0,.15);transition:.2s}
+.cell.win{background:#ffd700;transform:scale(1.08);box-shadow:0 0 20px #ffd700;border-color:#ffaa00}
+.cell.spin{animation:sp .12s infinite}
+@keyframes sp{0%{transform:translateY(-6px);filter:blur(2px)}50%{transform:translateY(6px)}100%{transform:translateY(-6px)}}
+.payline{font-size:11px;opacity:.7;margin:8px 0}
+.controls{display:flex;gap:10px;margin-top:10px}
+#spinBtn{flex:1;background:linear-gradient(180deg,#ffe45e,#ffaa00);border:none;border-bottom:5px solid #b87700;padding:15px;font-size:21px;font-weight:900;border-radius:13px}
+#spinBtn:active{transform:translateY(3px)}
 #spinBtn:disabled{opacity:.6}
-.lever{width:52px;height:68px;background:#222;border:3px solid #ffd700;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:.2s;user-select:none}
-.lever:hover{transform:rotate(8deg) scale(1.1);background:#ff2d55}
-.lever:active{transform:rotate(-12deg) translateY(6px)}
-#msg{min-height:28px;margin-top:12px;font-size:18px;font-weight:700;color:#00ff88;text-shadow:0 0 10px rgba(0,255,136,.6)}
-.jackpot{color:#ffd700!important;font-size:22px!important;animation:blink .4s infinite alternate}
-.pay{font-size:12px;opacity:.75;margin-top:10px;line-height:1.6}
-.pay b{color:#ffd700}
-.betRow{display:flex;gap:8px;justify-content:center;margin:8px 0}
-.betRow button{background:#222;color:#fff;border:1px solid #555;padding:8px 12px;border-radius:20px;font-weight:800}
-.betRow button.active{background:#ffd700;color:#000;border-color:#ffd700}
-</style>
-</head>
-<body>
-<div class="top">🎰 GL GAMES</div>
-<p class="sub">by Gany50ph • Casino Edition</p>
+.lever{width:54px;background:#222;border:3px solid #ffd700;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.lever:active{transform:rotate(-15deg)}
+#msg{min-height:26px;margin-top:10px;font-weight:800;color:#00ff88;font-size:17px}
+#msg.big{color:#ffd700;font-size:21px;animation:b .4s infinite alternate}
+</style></head><body>
+<div class="top">🎰 GL GAMES</div><p style="margin:0;opacity:.8">by Gany50ph • REAL 3-LINE SLOT</p>
 <div class="lights"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-
 <div class="machine">
-<h2>✨ SCATTER PA MORE! ✨</h2>
-<div class="bal">💰 BALANCE: <span id="bal">1000</span> &nbsp;|&nbsp; 🏆 WIN: <span id="lastWin">0</span></div>
-
-<div class="betRow">
-<button onclick="setBet(50,this)" class="active">BET 50</button>
-<button onclick="setBet(100,this)">BET 100</button>
-<button onclick="setBet(200,this)">BET 200</button>
+<h2 style="margin:5px">✨ SCATTER PA MORE! ✨</h2>
+<div class="bal">💰 BALANCE: <span id="bal">1000</span> | 🏆 WIN: <span id="last">0</span></div>
+<div class="betRow"><button onclick="setBet(50,this)" class="on">BET 50</button><button onclick="setBet(100,this)">BET 100</button><button onclick="setBet(200,this)">BET 200</button></div>
+<div class="grid" id="grid"></div>
+<div class="payline">◀ LINE 1 • LINE 2 • LINE 3 ▶ &nbsp; 3 pareho sa isang LINE = PANALO!</div>
+<div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50</button><div class="lever" onclick="spin()">🕹️</div></div>
+<div id="msg">Good luck bro! 3 Lines na to!</div>
+<div style="font-size:11px;opacity:.7;margin-top:8px">💎 3x = x20 • ⭐ 3x = x10 • 🍒🍋🔔🍇 = x5 • 2 lines = x2 bonus</div>
 </div>
-
-<div class="reels">
-<div class="reel" id="r1">🍒</div>
-<div class="reel" id="r2">⭐</div>
-<div class="reel" id="r3">💎</div>
-</div>
-
-<div class="controls">
-<button id="spinBtn" onclick="spin()">🎰 SPIN</button>
-<div class="lever" onclick="spin()" title="Pull Lever">� lever</div>
-</div>
-
-<div id="msg">Good Luck Bro! Pindutin mo SPIN o hilahin mo yung lever!</div>
-<div class="pay"><b>PAYTABLE:</b> 3x Same = JACKPOT x10 • 2x Same = x2 • 3x 💎 = x20 • 3x 7️⃣ = x50</div>
-</div>
-
 <script>
-let bal=1000, bet=50;
-let sym=["🍒","⭐","💎","🔔","🍋","7️⃣","💰"];
-function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('active'));el.classList.add('active');document.getElementById('spinBtn').innerHTML='🎰 SPIN - '+bet;}
-function playBeep(f=600,d=0.08){try{let a=new (window.AudioContext||window.webkitAudioContext)();let o=a.createOscillator();let g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=f;g.gain.value=0.15;o.start();o.stop(a.currentTime+d);}catch(e){}}
+let bal=1000, bet=50, sym=["🍒","🍋","🔔","⭐","💎","💰","🍇","BAR"];
+let grid=document.getElementById('grid');
+for(let i=0;i<9;i++){let d=document.createElement('div');d.className='cell';d.innerText=sym[Math.floor(Math.random()*sym.length)];grid.appendChild(d);}
+function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+bet;}
+function beep(f=500){try{let a=new (window.AudioContext||window.webkitAudioContext)();let o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=f;g.gain.value=0.12;o.start();o.stop(a.currentTime+0.07);}catch(e){}}
 function spin(){
-if(bal<bet){document.getElementById('msg').innerText="Wala ka ng coins! Refresh mo!";return;}
-bal-=bet;
-document.getElementById('bal').innerText=bal;
+if(bal<bet){document.getElementById('msg').innerText='Wala ka ng coins! Refresh mo!';return;}
+bal-=bet;document.getElementById('bal').innerText=bal;
 let btn=document.getElementById('spinBtn');btn.disabled=true;
-let reels=[document.getElementById('r1'),document.getElementById('r2'),document.getElementById('r3')];
-reels.forEach(r=>{r.classList.add('spinning');r.classList.remove('win')});
-document.getElementById('msg').innerText="Umiikot... Good Luck!";
-document.getElementById('msg').classList.remove('jackpot');
-let ticks=0;
-let iv=setInterval(()=>{reels.forEach(r=>{r.innerText=sym[Math.floor(Math.random()*sym.length)]});playBeep(300+Math.random()*400,0.04);ticks++;},90);
-setTimeout(()=>{
-clearInterval(iv);
-let a=sym[Math.floor(Math.random()*sym.length)];
-let b=sym[Math.floor(Math.random()*sym.length)];
-let c=sym[Math.floor(Math.random()*sym.length)];
-reels[0].innerText=a;reels[1].innerText=b;reels[2].innerText=c;
-reels.forEach(r=>r.classList.remove('spinning'));
-let win=0,msg="";
-if(a==b && b==c){
-if(a=="7️⃣") win=bet*50; else if(a=="💎") win=bet*20; else win=bet*10;
-msg="🎉 JACKPOT! +"+win+"! SCATTER PA MORE!";
-document.getElementById('msg').classList.add('jackpot');
-reels.forEach(r=>r.classList.add('win')); playBeep(900,0.3); setTimeout(()=>playBeep(1200,0.3),150);
-}else if(a==b||b==c||a==c){win=bet*2;msg="👏 Nice! +"+win+"!";playBeep(700,0.15);}
-else{msg="Sayang! Spin ulit bro!";}
-bal+=win;
-document.getElementById('bal').innerText=bal;
-document.getElementById('lastWin').innerText=win;
-document.getElementById('msg').innerText=msg;
-btn.disabled=false;
-},1100);
+let cells=[...document.querySelectorAll('.cell')];cells.forEach(c=>c.classList.remove('win'));
+document.getElementById('msg').innerText='Umiikot...';document.getElementById('msg').classList.remove('big');
+let cols=[[0,3,6],[1,4,7],[2,5,8]];
+let final=[];for(let i=0;i<9;i++) final.push(sym[Math.floor(Math.random()*sym.length)]);
+cols.forEach((col,ci)=>{
+  let t=0; let iv=setInterval(()=>{col.forEach(idx=>{cells[idx].innerText=sym[Math.floor(Math.random()*sym.length)];cells[idx].classList.add('spin')});beep(300+ci*100);t++;
+  if(t>8+ci*6){clearInterval(iv);col.forEach(idx=>{cells[idx].innerText=final[idx];cells[idx].classList.remove('spin')});beep(900);
+    if(ci==2){setTimeout(finish,200);}
+  }},90);
+});
+function finish(){
+  let wins=0,lines=0;
+  // 3 horizontal lines: rows 0-2,3-5,6-8
+  [[0,1,2],[3,4,5],[6,7,8]].forEach(row=>{
+    if(final[row[0]]==final[row[1]] && final[row[1]]==final[row[2]]){
+      lines++; row.forEach(i=>cells[i].classList.add('win'));
+      let s=final[row[0]]; let mult=s=="💎"?20:s=="⭐"?10:5; wins+=bet*mult;
+    }
+  });
+  if(lines>=2) wins*=2;
+  bal+=wins;document.getElementById('bal').innerText=bal;document.getElementById('last').innerText=wins;
+  let m=document.getElementById('msg');
+  if(wins>0){m.innerText=lines>=2?'🔥 DOUBLE LINE! +'+wins+'!':'🎉 LINE WIN! +'+wins+'!';m.classList.add('big');beep(1200);}
+  else m.innerText='Sayang! Spin ulit bro!';
+  btn.disabled=false;
 }
-</script>
-</body>
-  </html>
+}
+</script></body></html>
