@@ -9,6 +9,26 @@
 <div class="jackpotBar"><div class="jackpotLights"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><span id="jackpotPool">₱ 50,000,000,000</span><div class="jackpotLights"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
 <div class="levelBar" id="levelBar">⭐ LEVEL <span id="levelNum">1</span> - <span id="levelTitle">NEWBIE</span><div class="bar"><div class="fill" id="levelFill"></div></div><span id="levelText" style="font-size:10px;opacity:.8">0 / 10 XP to next level</span></div>
 <div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div><div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button><button onclick="setBet(10000000,this)">BET 10M</button><button onclick="setBet(100000000,this)" class="big">BET 100M</button><button onclick="setBet(1000000000,this)" class="big">BET 1B 🔥</button></div><div class="grid" id="grid"></div><div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button></div><div class="autoRow"><button id="manualBtn" class="on" onclick="setMode('manual')">✋ MANUAL SPIN</button><button id="autoBtn" onclick="setMode('auto')">▶️ AUTO SPIN</button></div><div id="msg">Good luck! Dragon mode on!</div><div id="comebackBar"></div></div>
+  /* FIX - 1 HILERA BET + KASYA LAHAT SA SCREEN */
+body{padding:2px}
+.top{font-size:28px!important;letter-spacing:3px!important;line-height:1}
+.sub2{font-size:9px!important}
+.signature{font-size:11px!important;margin:2px 0}
+.lights{margin:2px}
+.machine{padding:6px!important}
+.jackpotBar{padding:2px 3px!important;margin-bottom:3px!important}
+.levelBar{padding:3px 5px!important;margin:3px 0!important;font-size:11px!important}
+.levelBar .bar{height:6px!important;margin-top:2px!important}
+.bal{padding:4px!important;font-size:12px!important}
+.betRow{flex-wrap:nowrap!important;gap:3px!important;margin:4px 0!important}
+.betRow button{font-size:10px!important;padding:4px 5px!important;white-space:nowrap!important;flex:1}
+.grid{padding:4px!important;gap:4px!important}
+.cell{height:72px!important}
+.controls{margin-top:5px!important}
+#spinBtn{padding:8px!important;font-size:16px!important}
+.autoRow{margin-top:5px!important}
+#autoBtn,#manualBtn{padding:7px!important;font-size:12px!important}
+#msg{min-height:18px!important;margin-top:4px!important;font-size:12px!important}
 <script>
 let bal=100000000,bet=50000,spinNum=0,totalSpins=0,pot=50000000000,soundOn=true,vibOn=true,musicOn=true,audioCtx=null,musicTimer=null,currentJackpotBonus=0,jackpotSchedule=[10,15,20,30],scheduleIndex=0,spinsSinceJackpot=0,isSpinning=false,isWheelSpinning=false,wheelRotation=0,autoMode=false,autoTimer=null,level=1,levelXP=0;
 let levelTitles=["NEWBIE","ROOKIE","PRO","MASTER","DRAGON","LEGEND","GPO KING","MYTHIC"];
