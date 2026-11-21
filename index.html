@@ -10,9 +10,10 @@
 <div class="levelBar" id="levelBar">⭐ LEVEL <span id="levelNum">1</span> - <span id="levelTitle">NEWBIE</span><div class="bar"><div class="fill" id="levelFill"></div></div><span id="levelText" style="font-size:10px;opacity:.8">0 / 10 XP to next level</span></div>
 <div class="bal">💰 BALANCE: <span id="bal">100,000,000</span> | 🏆 WIN: <span id="last">0</span></div><div class="betRow"><button onclick="setBet(50000,this)" class="on">BET 50K</button><button onclick="setBet(200000,this)">BET 200K</button><button onclick="setBet(1000000,this)">BET 1M</button><button onclick="setBet(10000000,this)">BET 10M</button><button onclick="setBet(100000000,this)" class="big">BET 100M</button><button onclick="setBet(1000000000,this)" class="big">BET 1B 🔥</button></div><div class="grid" id="grid"></div><div class="controls"><button id="spinBtn" onclick="spin()">🎰 SPIN - 50K</button></div><div class="autoRow"><button id="manualBtn" class="on" onclick="setMode('manual')">✋ MANUAL SPIN</button><button id="autoBtn" onclick="setMode('auto')">▶️ AUTO SPIN</button></div><div id="msg">Good luck! Dragon mode on!</div><div id="comebackBar"></div></div>
 <style>
-/* FIX - FULL VIEW NO SPACE AT BOTTOM */
-html,body{height:100% !important;margin:0 !important;padding:0 !important;overflow:hidden !important;}
-body{display:flex !important;align-items:center !important;justify-content:center !important;min-height:100dvh !important;background:#001a0d !important;}
+/* FIX - AYOS NA HINDI NA TABINGI */
+html,body{margin:0 !important;padding:0 !important;background:#001a0d !important;overflow-x:hidden !important;}
+body{display:flex !important;flex-direction:column !important;align-items:center !important;justify-content:flex-start !important;min-height:100dvh !important;width:100% !important;}
+.top,.sub2,.signature,.lights,.machine{width:100% !important;max-width:400px !important;margin-left:auto !important;margin-right:auto !important;box-sizing:border-box !important;}
 </style>
 <script>
 let saved=JSON.parse(localStorage.getItem('gpo_save')||'{}');
