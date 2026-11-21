@@ -49,3 +49,77 @@ function claimTomorrowBonus(){bal+=5000000;document.getElementById('bal').innerT
 function toggleSettings(){document.getElementById('settingsPanel').classList.toggle('show');}
 function toggleSound(){soundOn=!soundOn;document.getElementById('soundSwitch').classList.toggle('on',soundOn);if(!soundOn)stopMusic();else if(musicOn)startMusic();}
 function toggleVib(){vibOn=!vibOn;document.getElementById('vibSwitch').classList.toggle('on',vibOn);
+function toggleVib(){vibOn=!vibOn;document.getElementById('vibSwitch').classList.toggle('on',vibOn);}
+function toggleMusic(){musicOn=!musicOn;document.getElementById('musicSwitch').classList.toggle('on',musicOn);if(musicOn&&soundOn)startMusic();else stopMusic();}
+function toggleFull(){if(!document.fullscreenElement){if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}else{if(document.exitFullscreen)document.exitFullscreen();}}
+document.addEventListener('fullscreenchange',()=>{let f=!!document.fullscreenElement;document.getElementById('fullSwitch').classList.toggle('on',f);document.getElementById('fullBtn').innerText=f?'✕':'⛶';});
+function doVibrate(p){if(vibOn&&navigator.vibrate)navigator.vibrate(p);}
+function beep(f=500,d=.07,type='triangle',vol=.12){if(!soundOn)return;try{let a=getCtx(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.type=type;o.frequency.value=f;g.gain.value=vol;o.start();o.stop(a.currentTime+d);}catch(e){}}
+function playKick(){if(!soundOn)return;try{let a=getCtx(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.type='sine';o.frequency.setValueAtTime(150,a.currentTime);o.frequency.exponentialRampToValueAtTime(40,a.currentTime+.15);g.gain.setValueAtTime(.5,a.currentTime);g.gain.exponentialRampToValueAtTime(.01,a.currentTime+.2);o.start();o.stop(a.currentTime+.2);}catch(e){}}
+function playMinorWin(){beep(600,.08);setTimeout(()=>beep(800,.08),80);setTimeout(()=>beep(1000,.12),160);}
+function playBigWin(){[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.15,'square',.15),i*100));}
+function startMusic(){if(musicTimer)return;let notes=[523,659,784,659,523,659,784,1046];let i=0;musicTimer=setInterval(()=>{if(soundOn&&musicOn)beep(notes[i%notes.length],.12,'triangle',.05);i++;},300);}
+function stopMusic(){clearInterval(musicTimer);musicTimer=null;}
+function setBet(v,el){bet=v;document.querySelectorAll('.betRow button').forEach(b=>b.classList.remove('on'));if(el)el.classList.add('on');document.getElementById('spinBtn').innerText='🎰 SPIN - '+v.toLocaleString();}
+function setMode(m){autoMode=(m=='auto');document.getElementById('autoBtn').classList.toggle('on',autoMode);document.getElementById('manualBtn').classList.toggle('on',!autoMode);if(autoMode){spin();}else{clearTimeout(autoTimer);}}
+// ============ CATEGORY 2: SPIN & WINNING CHANCE ============
+function spin(){
+if(isSpinning)return;
+if(bal<bet){showOutOfCoins();return;}
+isSpinning=true;bal-=bet;totalSpins++;spinsSinceJackpot++;
+let cells=[...document.querySelectorAll('.cell')];cells.forEach(c=>c.classList.remove('win'));
+document.getElementById('bal').innerText=bal.toLocaleString();
+document.getElementById('spinBtn').disabled=true;playKick();
+let ticks=0;let iv=setInterval(()=>{
+cells.forEach(c=>{c.innerText=sym[Math.floor(Math.random()*sym.length)];c.classList.add('spin');});
+beep(300+Math.random()*200,.03);ticks++;
+if(ticks>12){clearInterval(iv);cells.forEach(c=>c.classList.remove('spin'));
+let isCold=spinsSinceJackpot>60;
+let result=[];let wins=0;let winCells=[];
+if(!isCold&&Math.random()<0.12){
+let p=patterns[Math.floor(Math.random()*patterns.length)];
+let s=sym[Math.floor(Math.random()*sym.length)];
+p.forEach(idx=>{result[idx]=s;});
+for(let i=0;i<9;i++)if(result[i]==undefined)result[i]=sym[Math.floor(Math.random()*sym.length)];
+if(s=="💎")wins+=bet*6;else if(s=="🧧")wins+=bet*4;else if(["🦁","🦊","🐲"].includes(s))wins+=bet*3;else wins+=bet*2;
+winCells=p;
+}else if(isCold&&Math.random()<0.05){
+let p=patterns[Math.floor(Math.random()*patterns.length)];let s=sym[Math.floor(Math.random()*sym.length)];
+p.forEach(idx=>{result[idx]=s;});
+for(let i=0;i<9;i++)if(result[i]==undefined)result[i]=sym[Math.floor(Math.random()*sym.length)];
+if(s=="💎")wins+=bet*6;else if(s=="🧧")wins+=bet*4;else if(["🦁","🦊","🐲"].includes(s))wins+=bet*3;else wins+=bet*2;
+winCells=p;
+}else{
+for(let i=0;i<9;i++)result[i]=sym[Math.floor(Math.random()*sym.length)];
+let tries=0;while(patterns.some(p=>result[p[0]]==result[p[1]]&&result[p[1]]==result[p[2]])&&tries<20){for(let i=0;i<9;i++)result[i]=sym[Math.floor(Math.random()*sym.length)];tries++;}
+}
+cells.forEach((c,i)=>{c.innerText=result[i];});
+if(wins>0){winCells.forEach(idx=>cells[idx].classList.add('win'));bal+=wins;document.getElementById('last').innerText=wins.toLocaleString();document.getElementById('msg').innerText='🎉 WIN +'+wins.toLocaleString()+'!';document.getElementById('msg').classList.add('big');playBigWin();doVibrate(200);addXP(2);}else{document.getElementById('msg').innerText='Try again! Dragon mode on! 🐉';document.getElementById('msg').classList.remove('big');addXP(1);}
+document.getElementById('bal').innerText=bal.toLocaleString();saveGame();isSpinning=false;document.getElementById('spinBtn').disabled=false;
+if(spinsSinceJackpot>=jackpotSchedule[scheduleIndex]){showJackpot();}
+else if(autoMode){autoTimer=setTimeout(spin,600);}
+if(bal<bet&&bal<50000){showOutOfCoins();}
+}}
+},80);
+}
+function showJackpot(){document.getElementById('jackpotOverlay').classList.add('show');document.body.classList.add('jackpotMode');document.getElementById('jackpotText').innerText='Tap the center to spin!';document.getElementById('collectBtn').style.display='none';document.getElementById('wheelCenterBtn').classList.remove('disabled');}
+function spinWheel(){
+if(isWheelSpinning)return;isWheelSpinning=true;
+document.getElementById('wheelCenterBtn').classList.add('disabled');
+let idx=Math.floor(Math.random()*wheelPots.length);
+let target=360*5+(360-(idx*22.5+11.25));
+wheelRotation+=target;
+let w=document.getElementById('wheel');w.style.transition='transform 3s cubic-bezier(.1,.7,.3,1)';w.style.transform='rotate('+wheelRotation+'deg)';
+let tick=setInterval(()=>beep(800,.02),100);
+setTimeout(()=>{clearInterval(tick);let p=wheelPots[idx];
+let winAmount=p.mult?bet*p.mult:p.val;
+currentJackpotBonus=winAmount;
+document.getElementById('rouletteNum').innerText=p.label+'!';
+if(p.mult)document.getElementById('jackpotText').innerText='🎉 '+p.label+'! BET '+bet.toLocaleString()+' x '+p.mult+' = +'+winAmount.toLocaleString()+'!';
+else document.getElementById('jackpotText').innerText='🎉 +'+winAmount.toLocaleString()+'!';
+document.getElementById('collectBtn').style.display='block';playBigWin();isWheelSpinning=false;},3000);
+}
+function closeJackpot(){bal+=currentJackpotBonus;document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('last').innerText=currentJackpotBonus.toLocaleString();document.getElementById('jackpotOverlay').classList.remove('show');document.body.classList.remove('jackpotMode');spinsSinceJackpot=0;scheduleIndex=(scheduleIndex+1)%jackpotSchedule.length;currentJackpotBonus=0;saveGame();}
+if(claimed)document.getElementById('welcome').style.display='none';
+document.getElementById('bal').innerText=bal.toLocaleString();updateLevelUI();
+</script></body></html>
